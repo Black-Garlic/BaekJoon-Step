@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -18,6 +19,208 @@ public class Main {
 	
 	public static void main(String[] args) {
 
+	}
+	
+	// F. 1차원 배열
+	// 1. 최소, 최대 - 10818 
+	// Import Scanner
+	private static void F01() {
+		Scanner s = new Scanner(System.in);
+		int n = s.nextInt();
+		int num[] = new int[n];
+		int min = 0, max = 0;
+		
+		
+		for (int i = 0; i < n; i++) {
+			num[i] = s.nextInt();
+			if (i == 0) {
+				min = num[i];
+				max = num[i];
+			}
+			
+			if (min > num[i])
+				min = num[i];
+			
+			if (max < num[i])
+				max = num[i];
+		}
+		System.out.print(min + " " + max);
+	}
+	
+	// F. 1차원 배열
+	// 2. 최댓값 - 2562
+	// Import Scanner
+	private static void F02() {
+		Scanner s = new Scanner(System.in);
+		int num[] = new int[9];
+		int max = 0, index = 0;
+		
+		
+		for (int i = 0; i < 9; i++) {
+			num[i] = s.nextInt();
+			if (max < num[i]) {
+				max = num[i];
+				index = i+1;
+			}
+		}
+		System.out.println(max);
+		System.out.println(index);
+	}
+	
+	// F. 1차원 배열
+	// 3. 숫자의 개수 - 2577 
+	// Import Scanner
+	private static void F03() {
+		Scanner s = new Scanner(System.in);
+		int num[] = new int[3];
+		int sum = 0;
+		
+		int count[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		
+		for (int i = 0; i < 3; i++) {
+			num[i] = s.nextInt();
+		}
+		
+		sum = num[0] * num[1] * num[2];
+		
+		String numText = sum + "";
+		for (int i = 0; i < numText.length(); i++) {
+			count[numText.charAt(i)-'0']++;
+		}
+		
+		for (int i = 0; i < 10; i++) {
+			System.out.println(count[i]);	
+		}
+	}
+	
+	// F. 1차원 배열
+	// 4. 나머지 - 3052 
+	// Import Scanner, ArrayList
+	private static void F04() {
+		Scanner s = new Scanner(System.in);
+		int num = 0;
+		boolean newOne = true;
+		
+		ArrayList<Integer> array = new ArrayList<Integer>();
+		
+		for (int i = 0; i < 10; i++) {
+			num = s.nextInt() % 42;
+			
+			for (int j = 0; j < array.size(); j++) {
+				if (array.contains(num)) {
+					newOne = false;
+					break;
+				}	
+			}
+			
+			if (newOne) {
+				array.add(num);
+			} else {
+				newOne = true;
+			}
+		}
+		
+		System.out.println(array.size());
+	}
+	
+	// F. 1차원 배열
+	// 5. 평균 - 1546 
+	// Import Scanner, ArrayList
+	private static void F05() {
+		Scanner s = new Scanner(System.in);
+		int n = s.nextInt();
+		float sum = 0;
+		int max = 0, tmp;
+		ArrayList<Integer> score = new ArrayList<>();
+		
+		
+		for (int i = 0; i < n; i++) {
+			tmp = s.nextInt();
+			if (max < tmp)
+				max = tmp;
+				
+			score.add(tmp);
+		}
+		
+		for (int i = 0; i < n; i++) {
+			sum += (float) score.get(i) / max * 100;
+		}
+		
+		System.out.println(sum/n);
+	}
+	
+	// F. 1차원 배열
+	// 6. OX퀴즈 
+	// Import Scanner, ArrayList
+	private static void F06() {
+		Scanner s = new Scanner(System.in);
+		
+		int continuous = 0, tmp = 0;
+		ArrayList<Integer> score = new ArrayList<>();
+		String result;
+		
+		int n = s.nextInt();
+		result = s.nextLine();
+		
+		
+		
+		for (int i = 0; i < n; i++) {
+			result = s.nextLine();
+			for (int j = 0; j < result.length(); j++) {
+				if (result.charAt(j) == 'O') {
+					continuous++;
+					tmp += continuous;
+				} else {
+					continuous = 0;
+				}
+			}
+			score.add(tmp);
+			tmp = 0;
+			continuous = 0;
+		}
+		
+		for (int i = 0; i < n; i++) {
+			System.out.println(score.get(i));
+		}
+	}
+	
+	// F. 1차원 배열
+	// 7. 평균은 넘겠지 - 4344 
+	// Import Scanner, ArrayList
+	private static void F07() {
+		Scanner s = new Scanner(System.in);
+		
+		int tmp = 0, count = 0;
+		float average = 0;
+		ArrayList<Float> percent = new ArrayList<>();
+		String result;
+		
+		int n = s.nextInt();
+		result = s.nextLine();
+		
+		for (int i = 0; i < n; i++) {
+			result = s.nextLine();
+			String[] score = result.split(" ");
+			
+			for (int j = 1; j < score.length; j++) {
+				tmp += Integer.parseInt(score[j]);
+			}
+			
+			average = tmp/Float.parseFloat(score[0]); 
+			
+			for (int j = 1; j < score.length; j++) {
+				if (average < Float.parseFloat(score[j]))
+					count++;
+			}
+			
+			percent.add(count / Float.parseFloat(score[0]) * 100);
+			tmp = 0;
+			count = 0;
+		}
+		
+		for (int i = 0; i < n; i++) {
+			System.out.printf("%.3f%%\n", percent.get(i));
+		}
 	}
 	
 	// E. 실습 1
