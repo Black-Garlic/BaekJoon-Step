@@ -20,6 +20,68 @@ public class Main {
 
 	}
 	
+	// D. while문
+	// 1. A+B - 5 - 10952 
+	// Import BufferedReader, BufferedWriter, NumberFormatException, IOException, InputStreamReader, OutputStreamWriter
+	private static void D01() throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		while(true) {
+			String data = bf.readLine();
+			String[] datas = data.split(" ");
+			if (datas[0].equals("0") && datas[1].equals("0")) {
+				break;
+			} else {
+				bw.write(Integer.parseInt(datas[0])+Integer.parseInt(datas[1])+"\n");
+			}
+		}
+		bw.flush();
+		bw.close();
+	}
+	
+	// D. while문
+	// 2. A+B - 4 - 10951 
+	// Import BufferedReader, BufferedWriter, NumberFormatException, IOException, InputStreamReader, OutputStreamWriter
+	private static void D02() throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		while(true) {
+			String data = bf.readLine();
+			if (data == null) break;
+			String[] datas = data.split(" ");
+			bw.write(Integer.parseInt(datas[0])+Integer.parseInt(datas[1])+"\n");
+			
+		}
+		bw.flush();
+		bw.close();
+	}
+	
+	// D. while문
+	// 3. 더하기 사이클 - 1110 
+	// Import Scanner
+	private static void D03() {
+		Scanner s = new Scanner(System.in);
+		int num = s.nextInt();
+		int a, b, tmp, count = 0;
+		if (num < 10) {
+			a = 0;
+		} else {
+			a = num / 10;	
+		}
+		b = num % 10;
+		tmp = a + b;
+		while(true) {
+			count++;
+			a = b;
+			b = tmp % 10;
+			tmp = a + b;
+			if ((a*10+b) == num) break;
+		}
+		System.out.println(count);
+	}
+	
 	// C. for문
 	// 1. 구구단 - 2739 
 	// Import Scanner
