@@ -18,7 +18,274 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) {
+		H10();
+	}
+	
+	// H. 문자열
+	// 1. 아스키 코드 - 11654 
+	// Import Scanner
+	private static void H01() {
+		Scanner s = new Scanner(System.in);
+		
+		String num = s.nextLine();		
+		
+		System.out.println(num.charAt(0)+0);
+	}
+	
+	// H. 문자열
+	// 2. 숫자의 합 - 11720
+	// Import Scanner
+	private static void H02() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), sum = 0;
+		String numbers = s.nextLine();
+		numbers = s.nextLine();
+		
+		for (int i = 0; i < n; i++) {
+			sum += numbers.charAt(i) - 48;
+		}
+		
+		System.out.println(sum);
+	}
+	
+	// H. 문자열
+	// 3. 알파벳 찾기 - 10809 
+	// Import Scanner
+	private static void H03() {
+		Scanner s = new Scanner(System.in);
+		
+		String word = s.nextLine();
+		int index[] = new int[26];
+		
+		for (int i = 0; i < 26; i++)
+			index[i] = -1;
+		
+		for (int i = 0; i < word.length(); i++) {
+			if (index[word.charAt(i)-97] == -1)
+				index[word.charAt(i)-97] = i;
+		}
+		
+		for (int i = 0; i < 26; i++) {
+			System.out.print(index[i] + " ");
+		}
+	}
+	
+	// H. 문자열
+	// 4. 문자열 반복 - 2675 
+	// Import Scanner
+	private static void H04() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), time = 0;
+		String word = s.nextLine();
+		String repeat;
+		
+		
+		for (int i = 0; i < n; i++) {
+			repeat = "";
+			word = s.nextLine();
+			
+			String[] split = word.split(" ");
+			
+			time = split[0].charAt(0) - 48;
+			
+			for (int j = 0; j < split[1].length(); j++) {
+				for (int k = 0; k < time; k++)
+					repeat += split[1].charAt(j);
+			}
+			
+			System.out.println(repeat);
+		}
+	}
+	
+	// H. 문자열
+	// 5. 단어 공부 - 1157 
+	// Import Scanner
+	private static void H05() {
+		Scanner s = new Scanner(System.in);
+		
+		String word = s.nextLine();
+		int index[] = new int[26], count = 0, max = -1;
+		boolean duplicate = false;
+		
+		for (int i = 0; i < 26; i++)
+			index[i] = 0;
+		
+		word = word.toLowerCase();
+		
+		for (int i = 0; i < word.length(); i++) {
+			index[word.charAt(i)-97]++;
+		}
+		
+		for (int i = 0; i < 26; i++) {
+			if (index[i] == count) {
+				duplicate = true;
+			} else if (index[i] > count) {
+				count = index[i];
+				max = i;
+				duplicate = false;
+			}
+		}
+		
+		if (duplicate) {
+			System.out.println("?");			
+		} else {
+			System.out.println((char)(max+65));
+		}
+	}
+	
+	// H. 문자열
+	// 6. 단어의 개수 - 1152 
+	// Import Scanner
+	private static void H06() {
+		Scanner s = new Scanner(System.in);
+		
+		String word = s.nextLine().trim();
+		
+		if (word.isEmpty()) {
+			System.out.println(0);			
+		} else {
+			String[] split = word.split(" ");
+			
+			int count = split.length;
+			
+			System.out.println(count);			
+		}
+	}
+	
+	// H. 문자열
+	// 7. 상수 - 2908
+	// Import Scanner
+	private static void H07() {
+		Scanner s = new Scanner(System.in);
+		
+		int a, b, newA, newB, max;
+		a = s.nextInt();
+		b = s.nextInt();
+		
+		newA = (a % 10) * 100 + (a % 100 / 10) * 10 + (a / 100);
+		newB = (b % 10) * 100 + (b % 100 / 10) * 10 + (b / 100);
+		
+		if (newA > newB) {
+			System.out.println(newA);
+		} else {
+			System.out.println(newB);
+		}
+	}
+	
+	// H. 문자열
+	// 8. 다이얼 - 5622 
+	// Import Scanner
+	private static void H08() {
+		Scanner s = new Scanner(System.in);
+		
+		String word = s.nextLine().toUpperCase();
+		char[][] alphabet ={
+				{'A', 'B', 'C'}, {'D', 'E', 'F'},
+				{'G', 'H', 'I'}, {'J', 'K', 'L'},
+				{'M', 'N', 'O'}, {'P', 'Q', 'R', 'S'},
+				{'T', 'U', 'V'}, {'W', 'X', 'Y', 'Z'}
+		};
+		int time = 0;
+		
+		for (int i = 0; i < word.length(); i++) {
+			for (int j = 0; j < 8; j++) {
+				for (int k = 0; k < alphabet[j].length; k++) {
+					if (word.charAt(i) == alphabet[j][k]) {
+						time += j + 3;
+						break;
+					}
+				}
+			}
+		}
+		
+		System.out.println(time);
+	}
+	
+	// H. 문자열
+	// 9. 크로아티아 알파벳 - 2941 
+	// Import Scanner
+	private static void H09() {
+		Scanner s = new Scanner(System.in);
+		
+		String word = s.nextLine();
+		int count = 0, i = 0;
+		
+		while(i + 1 < word.length()) {
+			count++;
+			if (
+					(word.charAt(i) == 'c' && word.charAt(i+1) == '=') ||
+					(word.charAt(i) == 'c' && word.charAt(i+1) == '-') ||
+					(word.charAt(i) == 'd' && word.charAt(i+1) == '-') ||
+					(word.charAt(i) == 'l' && word.charAt(i+1) == 'j') ||
+					(word.charAt(i) == 'n' && word.charAt(i+1) == 'j') ||
+					(word.charAt(i) == 's' && word.charAt(i+1) == '=') ||
+					(word.charAt(i) == 'z' && word.charAt(i+1) == '=')
+				) {
+				i++;
+			} else if (word.charAt(i) == 'd' && word.charAt(i+1) == 'z') {
+				if (i + 2 != word.length() && word.charAt(i+2) == '=')
+					i += 2;
+			}
+			i++;
+		}
+		if (i + 1 == word.length())
+			count++;
+		
+		System.out.println(count);
+	}
+	
+	// H. 문자열
+	// 10. 그룹 단어 체커 - 1316 
+	// Import Scanner
+	private static void H10() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), count = 0;
+		String word = s.nextLine();
+		char pre = 0;
+		boolean group = true;
+		
+		int[] alphabet = new int[26];
 
+		for (int i = 0; i < n; i++) {
+			clearAlphabet(alphabet);
+			word = s.nextLine();
+			for (int j = 0; j < word.length(); j++) {
+				if (j == 0) {
+					pre = word.charAt(j);
+					alphabet[word.charAt(j)-97]++;
+				} else if (pre == word.charAt(j)) {
+					
+				} else if (pre != word.charAt(j) && checkDuplicate(alphabet, word.charAt(j))) {
+					group = false;
+					break;
+				} else {
+					pre = word.charAt(j);
+					alphabet[word.charAt(j)-97]++; 
+				}
+			}
+			if (group)
+				count++;
+			
+			pre = 0;
+			group = true;
+		}
+		System.out.println(count);
+	}
+	
+	private static void clearAlphabet(int[] alphabet) {
+		for (int i = 0; i < 26; i++)
+			alphabet[i] = 0;
+	}
+	
+	private static boolean checkDuplicate(int[] alphabet, char character) {
+		for (int i = 0; i < 26; i++) {
+			if (alphabet[character-97] != 0)
+				return true;
+		}
+		return false;
 	}
 	
 	// G. 함수
