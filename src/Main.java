@@ -21,6 +21,107 @@ public class Main {
 
 	}
 	
+	// G. 함수
+	// 1. 정수 N개의 합 - 15596 
+	// Import 
+	private static void G01() {
+		int[] num = {0, 0};
+		sumG01(num);
+	}
+	
+	private static long sumG01(int[] a) {
+        long ans = 0;
+        
+        for (int i = 0; i < a.length; i++) {
+            ans += a[i];
+        }
+        
+        return ans;
+    }
+	
+	// G. 함수
+	// 2. 셀프 넘버 - 4673 
+	// Import 
+	private static void G02() {
+		int num = 1, tmp = 0;;
+		
+		int result[] = new int[10000];
+		
+		while(num < 10000) {
+			tmp = sumG02(num);
+			
+			if (tmp < 10000) {
+				result[tmp-1] = 1;	
+			}
+			
+			num++;
+		}
+		num = 0;
+		while(num < 9999) {
+			if (result[num] != 1)
+				System.out.println(num+1);
+			num++;
+		}
+	}
+	
+	private static int sumG02(int num) {
+		return num + (num / 1000) + (num % 1000) / 100 + (num % 100) / 10 + (num % 10);
+	}
+	
+	// G. 함수
+	// 3. 한수 - 1065 
+	// Import Scanner
+	private static void G03() {
+		Scanner s = new Scanner(System.in);
+		
+		int num = s.nextInt();
+		
+		int a, b, c, count = 0;
+		
+		a = num / 100;
+		b = num % 100 / 10;
+		c = num % 10;
+		
+		if (a == 0 && num != 1000) {
+			count = num;
+		} else {
+			count += 99;
+			for (int i = 1; i <= a; i++) {
+				if (i == a) {
+					for (int j = 0; j <= b; j++) {
+						if (j == b) {
+							for (int k = 0; k <= c; k++) {
+								if (check(i, j, k))
+									count++;
+							}
+						} else {
+							for (int k = 0; k < 10; k++) {
+								if (check(i, j, k))
+									count++;	
+							}
+						}
+					}
+				} else {
+					for (int j = 0; j < 10; j++) {
+						for (int k = 0; k < 10; k++) {
+							if (check(i, j, k))
+								count++;
+						}
+					}
+				}
+			}
+		}
+		
+		System.out.println(count);
+	}
+	
+	static boolean check (int i, int j, int k) {
+		if (i - j == j - k)
+			return true;
+		else
+			return false;
+	}
+	
 	// F. 1차원 배열
 	// 1. 최소, 최대 - 10818 
 	// Import Scanner
