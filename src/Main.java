@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
 public class Main {
@@ -13,6 +18,194 @@ public class Main {
 	
 	public static void main(String[] args) {
 
+	}
+	
+	// C. for문
+	// 1. 구구단 - 2739 
+	// Import Scanner
+	private static void C01() {
+		Scanner scanner = new Scanner(System.in);
+		int x;
+		x = scanner.nextInt();
+		
+		for (int i = 1; i <= 9; i++) {
+			System.out.println(x + " * " + i + " = " + x*i);	
+		}
+	}
+	
+	// C. for문
+	// 2. A+B - 3 - 10950 
+	// Import Scanner
+	private static void C02() {
+		Scanner scanner = new Scanner(System.in);
+		int test, x, y;
+		test = scanner.nextInt();
+		
+		for (int i = 0; i < test; i++) {
+			x = scanner.nextInt();
+			y = scanner.nextInt();
+			System.out.println(x+y);	
+		}
+	}
+	
+	// C. for문
+	// 3. 합 - 8393 
+	// Import Scanner
+	private static void C03() {
+		Scanner scanner = new Scanner(System.in);
+		int x, sum = 0;
+		x = scanner.nextInt();
+		
+		for (int i = 1; i <= x; i++) {
+			sum = sum + i;
+		}
+		System.out.println(sum);
+	}
+	
+	// C. for문
+	// 4. 빠른 A+B 
+	// Import BufferedReader, BufferedWriter, NumberFormatException, IOException, InputStreamReader, OutputStreamWriter
+	private static void C04() throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int n = Integer.parseInt(bf.readLine().trim());
+		
+		for (int i = 0; i < n; i++) {
+			String text = bf.readLine();
+			String[] word = text.split(" ");
+			int a = Integer.parseInt(word[0]);
+			int b = Integer.parseInt(word[1]);
+			bw.write((a+b)+"\n");
+		}
+		bw.flush();
+		bw.close();
+	}
+	
+	// C. for문
+	// 5. N 찍기 - 2741 
+	// Import BufferedReader, BufferedWriter, NumberFormatException, IOException, InputStreamReader, OutputStreamWriter
+	private static void C05() throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int n = Integer.parseInt(bf.readLine().trim());
+		
+		for (int i = 1; i <= n; i++) {
+			bw.write(i+"\n");
+		}
+		bw.flush();
+		bw.close();System.out.println("Hello World!");
+	}
+	
+	// C. for문
+	// 6. 기찍 N - 2742
+	// Import BufferedReader, BufferedWriter, NumberFormatException, IOException, InputStreamReader, OutputStreamWriter
+	private static void C06() throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int n = Integer.parseInt(bf.readLine().trim());
+		
+		for (int i = n; i > 0; i--) {
+			bw.write(i+"\n");
+		}
+		bw.flush();
+		bw.close();
+	}
+	
+	// C. for문
+	// 7. A+B - 7 - 11021 
+	// Import BufferedReader, BufferedWriter, NumberFormatException, IOException, InputStreamReader, OutputStreamWriter
+	private static void C07() throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int n = Integer.parseInt(bf.readLine().trim());
+		
+		for (int i = 1; i <= n; i++) {
+			String text = bf.readLine();
+			String[] word = text.split(" ");
+			int a = Integer.parseInt(word[0]);
+			int b = Integer.parseInt(word[1]);
+			bw.write("Case #"+i+": "+(a+b)+"\n");
+		}
+		bw.flush();
+		bw.close();
+	}
+	
+	// C. for문
+	// 8. A+B - 8 - 11022 
+	// Import BufferedReader, BufferedWriter, NumberFormatException, IOException, InputStreamReader, OutputStreamWriter
+	private static void C08() throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int n = Integer.parseInt(bf.readLine().trim());
+		
+		for (int i = 1; i <= n; i++) {
+			String text = bf.readLine();
+			String[] word = text.split(" ");
+			int a = Integer.parseInt(word[0]);
+			int b = Integer.parseInt(word[1]);
+			bw.write("Case #"+i+": "+a+" + "+b+" = "+(a+b)+"\n");
+		}
+		bw.flush();
+		bw.close();
+	}
+	
+	// C. for문
+	// 9. 별 찍기 - 1 - 2438 
+	// Import BufferedReader, BufferedWriter, NumberFormatException, IOException, InputStreamReader, OutputStreamWriter
+	private static void C09() throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int n = Integer.parseInt(bf.readLine().trim());
+		
+		for (int i = 1; i <= n; i++) {
+			for (int j = 0; j < i; j++) {
+				bw.write("*");
+			}
+			bw.write("\n");
+		}
+		bw.flush();
+		bw.close();
+	}
+	
+	// C. for문
+	// 10. 별 찍기 - 2 - 2439 
+	// Import BufferedReader, BufferedWriter, NumberFormatException, IOException, InputStreamReader, OutputStreamWriter
+	private static void C10() throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int n = Integer.parseInt(bf.readLine().trim());
+		
+		for (int i = 1; i <= n; i++) {
+			for (int j = n; j > 0; j--) {
+				if (j <= i) {
+					bw.write("*");	
+				} else {
+					bw.write(" ");
+				}
+			}
+			bw.write("\n");
+		}
+		bw.flush();
+		bw.close();
+	}
+	
+	// C. for문
+	// 11. X보다 작은 수 - 10871 
+	// Import BufferedReader, BufferedWriter, NumberFormatException, IOException, InputStreamReader, OutputStreamWriter
+	private static void C11() throws NumberFormatException, IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		String n = bf.readLine();
+		String[] parse = n.split(" ");
+		String data = bf.readLine();
+		String[] datas = data.split(" ");
+		
+		for (int i = 0; i < Integer.parseInt(parse[0]); i++) {
+			if (Integer.parseInt(datas[i]) < Integer.parseInt(parse[1]))
+				bw.write(datas[i] + " ");
+		}
+		bw.flush();
+		bw.close();
 	}
 	
 	// B. if문
