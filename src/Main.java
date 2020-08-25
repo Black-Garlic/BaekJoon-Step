@@ -20,6 +20,156 @@ public class Main {
 
 	}
 	
+	// E. 실습 1
+	// 1. 평균 점수 - 10039 
+	// Import Scanner
+	private static void E01() {
+		Scanner s = new Scanner(System.in);
+		int sum = 0, score = 0;
+		for (int i = 0; i < 5; i++) {
+			score = s.nextInt();
+			if (score < 40) {
+				sum = sum + 40;
+			} else {
+				sum = sum + score;
+			}
+		}
+		
+		System.out.println(sum / 5);
+	}
+	
+	// E. 실습 1
+	// 2. 상근날드 - 5543 
+	// Import Scanner
+	private static void E02() {
+		Scanner s = new Scanner(System.in);
+		int price[] = new int[5];
+		int burger = 0, drink = 0;
+		for (int i = 0; i < 5; i++) {
+			price[i] = s.nextInt();
+			if (i == 0) {
+				burger = price[i];
+			} else if (i < 3) {
+				if (burger > price[i])
+					burger = price[i];
+			} else if (i == 3) {
+				drink = price[i];
+			} else {
+				if (drink > price[i]) 
+					drink = price[i];
+			}
+		}
+		
+		System.out.println(burger + drink - 50);
+	}
+	
+	// E. 실습 1
+	// 3. 세 수 - 10817 
+	// Import Scanner
+	private static void E03() {
+		Scanner s = new Scanner(System.in);
+		int num[] = new int[3];
+		int tmp = 0;
+		for (int i = 0; i < 3; i++) {
+			num[i] = s.nextInt();
+		}
+		
+		if (num[0] > num[1]) {
+			tmp = num[0];
+			num[0] = num[1];
+			num[1] = tmp;
+		}
+		
+		if (num[0] > num[2]) {
+			tmp = num[0];
+			num[0] = num[2];
+			num[2] = tmp;
+		}
+		
+		if (num[1] > num[2]) {
+			tmp = num[1];
+			num[1] = num[2];
+			num[2] = tmp;
+		}
+		
+		System.out.println(num[1]);
+	}
+	
+	// E. 실습 1
+	// 4. 별 찍기 - 13 - 2523 
+	// Import Scanner
+	private static void E04() {
+		Scanner s = new Scanner(System.in);
+		int num = s.nextInt();
+		
+		for (int i = 1; i <= num; i++) {
+			for (int j = 0; j < i; j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+		
+		for (int i = num-1; i > 0; i--) {
+			for (int j = 0; j < i; j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+	}
+	
+	// E. 실습 1
+	// 5. 별 찍기 - 9 - 2446 
+	// Import Scanner
+	private static void E05() {
+		Scanner s = new Scanner(System.in);
+		int num = s.nextInt();
+		
+		for (int i = 1; i <= num; i++) {
+			for (int j = 1; j <= num*2-1; j++) {
+				if (j >= i && j <= num*2-i)
+					System.out.print("*");
+				else if (j < i)
+					System.out.print(" ");
+			}
+			System.out.println();
+		}
+		
+		for (int i = num-1; i >= 1; i--) {
+			for (int j = 1; j <= num*2-1; j++) {
+				if (j >= i && j <= num*2-i)
+					System.out.print("*");
+				else if (j < i)
+					System.out.print(" ");
+			}
+			System.out.println();
+		}
+	}
+	
+	// E. 실습 1
+	// 6. 별 찍기 - 21 - 10996 
+	// Import Scanner
+	private static void E06() {
+		Scanner s = new Scanner(System.in);
+		int num = s.nextInt();
+		
+		for (int i = 1; i <= num; i++) {
+			for (int j = 1; j <= num; j++) {
+				if (j % 2 == 1)
+					System.out.print("*");
+				else
+					System.out.print(" ");
+			}
+			System.out.println();
+			for (int j = 1; j <= num; j++) {
+				if (j % 2 == 0)
+					System.out.print("*");
+				else
+					System.out.print(" ");
+			}
+			System.out.println();
+		}
+	}
+	
 	// D. while문
 	// 1. A+B - 5 - 10952 
 	// Import BufferedReader, BufferedWriter, NumberFormatException, IOException, InputStreamReader, OutputStreamWriter
