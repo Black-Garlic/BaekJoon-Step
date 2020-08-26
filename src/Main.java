@@ -1,10 +1,5 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 	/*
@@ -17,8 +12,229 @@ public class Main {
 	}
 	*/
 	
-	public static void main(String[] args) {
-		H10();
+	public static void main(String[] args) throws IOException {
+		I08();
+	}
+	
+	// I. 수학 1
+	// 1. 손익분기점 - 1712 
+	// Import Scanner
+	private static void I01() {
+		Scanner s = new Scanner(System.in);
+		
+		long a, b, c, count = 0;
+		a = s.nextInt();
+		b = s.nextInt();
+		c = s.nextInt();
+		
+		if (b < c)
+			while(true) {
+				count++;
+				if (a < (c-b) * count)
+					break;
+			}
+		else
+			count = -1;
+		
+		System.out.println(count);
+	}
+	
+	// I. 수학 1
+	// 2. 설탕 배달 - 2839
+	// Import Scanner
+	private static void I02() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), count = 0, min = n, tmp;
+		boolean able = false;
+		
+		for (int i = 0; i <= n/5; i++) {
+			count = 0;
+			tmp = n - (i * 5);
+			count += i;
+			
+			if (tmp % 3 == 0) {
+				count += tmp / 3;
+				able = true;
+			}
+			
+			
+			if (able) {
+				if (count < min)
+					min = count;
+				able = false;
+			}
+		}
+		
+		if (min == n)
+			min = -1;
+		
+		System.out.println(min);
+	}
+	
+	// I. 수학 1
+	// 3. 벌집 - 2292  
+	// Import 
+	private static void I03() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), count = 0;
+		
+		while (n > 0) {
+			count++;
+			if (count == 1)
+				n -= 1;
+			else
+				n -= 6 * (count-1);
+		}
+
+		System.out.println(count);
+	}
+	
+	// I. 수학 1
+	// 4. 분수찾기 - 1193  
+	// Import Scanner
+	private static void I04() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), first, last, count = 1;
+		
+		while(n > 0) {
+			n -= count;
+			count++;
+		}
+		
+		n += count - 1;
+		count--;
+		
+		if (count % 2 == 1) {
+			first = count - n + 1;
+			last = n;	
+		} else {
+			first = n;
+			last = count - n + 1;
+		}
+		
+		
+		System.out.println(first+"/"+last);
+	}
+	
+	// I. 수학 1
+	// 5. 달팽이는 올라가고 싶다  - 2869
+	// Import Scanner
+	private static void I05() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int a, b, v, present = 0, day = 1, dis;
+		a = Integer.parseInt(st.nextToken());
+		b = Integer.parseInt(st.nextToken());
+		v = Integer.parseInt(st.nextToken()) - b;
+		
+		dis = a - b;
+		
+		day = v / dis;
+		
+		if ((v) % dis != 0)
+			day++;
+		
+		System.out.println(day);
+	}
+	
+	// I. 수학 1
+	// 6. ACM 호텔 - 10250  
+	// Import Scanner
+	private static void I06() {
+		Scanner s = new Scanner(System.in);
+		
+		int time, h, w, n, guestH, guestW;
+		time = s.nextInt();
+		for (int i = 0; i < time; i++) {
+			h = s.nextInt();
+			w = s.nextInt();
+			n = s.nextInt();
+			
+			if (n % h != 0) {
+				guestW = n / h + 1;
+				guestH = n % h;	
+			} else {
+				guestW = n / h;
+				guestH = h;
+			}
+						
+			System.out.println(guestH*100+guestW);
+		}
+	}
+	
+	// I. 수학 1
+	// 7. 부녀회장이 될테야 - 2775
+	// Import Scanner
+	private static void I07() {
+		Scanner s = new Scanner(System.in);
+		
+		int T = s.nextInt();
+		
+		for (int i = 0; i < T; i++) {
+			int k, n;
+			k = s.nextInt();
+			n = s.nextInt();
+			
+			System.out.println(home(k, n));
+		}
+	}
+	
+	private static int home(int k, int n) {
+		if (k == 0)
+			return n;
+		else if (n == 0)
+			return 0;
+		else
+			return home(k-1, n) + home(k, n-1);
+	}
+	
+	// I. 수학 1
+	// 8. Fly me to the Alpha Centauri  
+	// Import 
+	private static void I08() {
+		Scanner s = new Scanner(System.in);
+		
+		int T, start, end;
+		
+		T = s.nextInt();
+		
+		for (int i = 0; i < T; i++) {
+			start = s.nextInt();
+			end = s.nextInt();
+			
+			System.out.println(alpha(start, end, 1, 0));
+		}
+	}
+	
+	private static int alpha(int start, int end, int v, int count) {
+		if (start == end && v == 1)
+			return count;
+		else if (start > end)
+			return -1;	
+		else {
+			int plus, zero, minus, result = 2147483647;
+			plus = alpha(start + v, end, v + 1, count + 1);
+			zero = alpha(start + v, end, v , count + 1);
+			minus = alpha(start + v, end, v - 1, count + 1);
+			
+			if (plus != -1) {
+				if (plus < result)
+					result = plus;
+			}
+			if (zero != -1) {
+				if (zero < result)
+					result = zero;
+			}
+			if (minus != -1) {
+				if (minus < result)
+					result = zero;
+			}
+			return result;
+		}
 	}
 	
 	// H. 문자열
