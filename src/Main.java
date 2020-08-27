@@ -13,7 +13,274 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		I08();
+		J08();
+	}
+	
+	// J. 수학 2
+	// 1. 소수 찾기 - 1978 
+	// Import Scanner
+	private static void J01() {
+		Scanner s = new Scanner(System.in);
+		
+		int T, n, count = 0;
+		boolean divided = false;
+		T = s.nextInt();
+		
+		for (int i = 0; i < T; i++) {
+			n = s.nextInt();
+			for (int j = 2; j < n; j++) {
+				if (n % j == 0)
+					divided = true;
+			}
+			if (!divided && n != 1)
+				count++;
+			else
+				divided = false;
+		}
+		System.out.println(count);
+	}
+	
+	// J. 수학 2
+	// 2. 소수 -  2581
+	// Import Scanner
+	private static void J02() {
+		Scanner s = new Scanner(System.in);
+		
+		int start, end, sum = 0, min = 0;
+		boolean divided = false;
+		start = s.nextInt();
+		end = s.nextInt();
+		
+		for (int i = start; i <= end; i++) {
+			
+			for (int j = 2; j < i; j++) {
+				if (i % j == 0) {
+					divided = true;
+					break;
+				}
+			}
+			if (!divided && i != 1) {
+				if (min == 0)
+					min = i;
+				sum += i;
+			} else {
+				divided = false;
+			}
+		}
+		if (min == 0) {
+			System.out.println("-1");	
+		} else {
+			System.out.println(sum);
+			System.out.println(min);
+		}
+	}
+	
+	// J. 수학 2
+	// 3. 소수 구하기 - 1929 
+	// Import Scanner
+	private static void J03() {
+		Scanner s = new Scanner(System.in);
+		
+		int start, end;
+		start = s.nextInt();
+		end = s.nextInt();
+		
+		boolean array[] = new boolean[end + 1];
+		array[1] = true;
+		
+		for (int i = 2; i <= end; i++) {
+			for (int j = 2; i * j <= end; j++) {
+				array[i * j] = true;
+			}
+		}
+		
+		for (int i = start; i <= end; i++) {
+			if (!array[i])
+				System.out.println(i);
+		}
+	}
+	
+	// J. 수학 2
+	// 4. 베르트랑 공준 - 4948 
+	// Import  
+	private static void J04() {
+		Scanner s = new Scanner(System.in);
+		
+		int start, end, count = 0;
+
+		while(true) {
+			start = s.nextInt();
+			
+			if (start == 0) {
+				break;
+			} else {
+				end = 2 * start;
+				count = 0;
+			}
+			
+			boolean array[] = new boolean[end + 1];
+			
+			for (int i = 2; i <= end; i++) {
+				for (int j = 2; i * j <= end; j++) {
+					array[i * j] = true;
+				}
+			}
+			
+			for (int i = start + 1; i <= end; i++) {
+				if (!array[i])
+					count++;
+			}
+			System.out.println(count);
+		}
+	}
+	
+	// J. 수학 2
+	// 5. 골드바흐의 추측 - 9020 
+	// Import Scanner
+	private static void J05() {
+		Scanner s = new Scanner(System.in);
+		
+		int T, n, first, second;
+		T = s.nextInt();
+		
+		for (int i = 0; i < T; i++) {
+			n = s.nextInt();
+			
+			if (n == 0) {
+				break;
+			} else {
+				first = 0;
+				second = n;
+			}
+			
+			boolean array[] = new boolean[n + 1];
+			array[1] = true;
+			ArrayList<Integer> prime = new ArrayList<>();
+			
+			for (int j = 2; j <= n; j++) {
+				for (int k = 2; j * k <= n; k++) {
+					array[j * k] = true;
+				}
+			}
+			
+			for (int j = 2; j <= n; j++) {
+				if (!array[j]) {
+					prime.add(j);
+				}
+					
+			}
+			
+			for (int j = 0; j < prime.size(); j++) {
+				for (int k = 0; k < prime.size(); k++) {
+					if (prime.get(j) + prime.get(k) > n) {
+						break;
+					} else if (prime.get(j) + prime.get(k) == n &&
+							prime.get(j) - prime.get(k) < second - first) {
+						first = prime.get(j);
+						second = prime.get(k);
+					}
+				}
+			}
+			
+			System.out.println(first + " " + second);
+		}
+	}
+	
+	// J. 수학 2
+	// 6. 직사각형에서 탈출 - 1085 
+	// Import Scanner
+	private static void J06() {
+		Scanner s = new Scanner(System.in);
+		
+		int x, y, w, h, xp, yp, result = 1000;
+		x = s.nextInt();
+		y = s.nextInt();
+		w = s.nextInt();
+		h = s.nextInt();
+		
+		xp = w - x;
+		yp = h - y;
+		
+		result = x;
+		
+		if (xp < result)
+			result = xp;
+		if (y < result)
+			result = y;
+		if (yp < result)
+			result = yp;
+		
+		System.out.println(result);
+	}
+	
+	// J. 수학 2
+	// 7. 네 번째 점 - 3009 
+	// Import Scanner
+	private static void J07() {
+		Scanner s = new Scanner(System.in);
+		
+		int x1, y1, x2, y2, x3, y3, resultX = 0, resultY = 0;
+		
+		x1 = s.nextInt();
+		y1 = s.nextInt();
+		x2 = s.nextInt();
+		y2 = s.nextInt();
+		x3 = s.nextInt();
+		y3 = s.nextInt();
+		
+		if (x1 == x2)
+			resultX = x3;
+		else if (x1 == x3)
+			resultX = x2;
+		else
+			resultX = x1;
+		
+		if (y1 == y2)
+			resultY = y3;
+		else if (y1 == y3)
+			resultY = y2;
+		else
+			resultY = y1;
+		
+		System.out.println(resultX + " " + resultY);
+	}
+	
+	// J. 수학 2
+	// 8. 직각삼각형 - 4153 
+	// Import Scanner
+	private static void J08() {
+		Scanner s = new Scanner(System.in);
+		
+		while(true) {
+			int a, b, c, longV, shortV1, shortV2;
+			a = s.nextInt();
+			b = s.nextInt();
+			c = s.nextInt();
+			
+			if (a == 0 && b == 0 && c == 0)
+				break;
+
+			a = (int) Math.pow(a, 2);
+			b = (int) Math.pow(b, 2);
+			c = (int) Math.pow(c, 2);
+			
+		}
+		
+		
+	}
+	
+	// J. 수학 2
+	// 1. Hello World 
+	// Import  
+	private static void J09() {
+		System.out.println("Hello World!");
+	}
+	
+	// J. 수학 2
+	// 1. Hello World 
+	// Import  
+	private static void J10() {
+		System.out.println("Hello World!");
 	}
 	
 	// I. 수학 1
