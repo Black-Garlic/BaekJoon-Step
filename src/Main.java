@@ -198,42 +198,30 @@ public class Main {
 	private static void I08() {
 		Scanner s = new Scanner(System.in);
 		
-		int T, start, end;
+		int T, start, end, dis, v;
 		
 		T = s.nextInt();
 		
 		for (int i = 0; i < T; i++) {
+			v = 1;
+			
 			start = s.nextInt();
 			end = s.nextInt();
 			
-			System.out.println(alpha(start, end, 1, 0));
-		}
-	}
-	
-	private static int alpha(int start, int end, int v, int count) {
-		if (start == end && v == 1)
-			return count;
-		else if (start > end)
-			return -1;	
-		else {
-			int plus, zero, minus, result = 2147483647;
-			plus = alpha(start + v, end, v + 1, count + 1);
-			zero = alpha(start + v, end, v , count + 1);
-			minus = alpha(start + v, end, v - 1, count + 1);
+			dis = end - start;
+			int square = (int)Math.sqrt(dis-1);
 			
-			if (plus != -1) {
-				if (plus < result)
-					result = plus;
+			if (dis == 1) {
+				v = 1;
+			} else {
+				if (dis-1 < square * square + square) {
+					v = 2 * square;
+				} else {
+					v = 2 * square + 1;
+				}
 			}
-			if (zero != -1) {
-				if (zero < result)
-					result = zero;
-			}
-			if (minus != -1) {
-				if (minus < result)
-					result = zero;
-			}
-			return result;
+			
+			System.out.println(v);
 		}
 	}
 	
