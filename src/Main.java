@@ -13,7 +13,7 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		J08();
+		J10();
 	}
 	
 	// J. 수학 2
@@ -252,7 +252,8 @@ public class Main {
 		Scanner s = new Scanner(System.in);
 		
 		while(true) {
-			int a, b, c, longV, shortV1, shortV2;
+			int a, b, c;
+			boolean right = false;
 			a = s.nextInt();
 			b = s.nextInt();
 			c = s.nextInt();
@@ -264,24 +265,74 @@ public class Main {
 			b = (int) Math.pow(b, 2);
 			c = (int) Math.pow(c, 2);
 			
+			if (a > b) {	
+				if (a > c) {
+					if (a == b + c)
+						right = true;
+				} else {
+					if (c == a + b)
+						right = true;
+				}
+			} else {
+				if (b > c) {
+					if (b == a + c)
+						right = true;
+				} else {
+					if (c == a + b)
+						right = true;
+				}
+			}
+			
+			if (right)
+				System.out.println("right");
+			else
+				System.out.println("wrong");
 		}
-		
-		
 	}
 	
 	// J. 수학 2
-	// 1. Hello World 
-	// Import  
+	// 9. 택시 기하학 - 3053 
+	// Import Scanner
 	private static void J09() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int r = s.nextInt();
+		
+		System.out.printf("%.6f\n", Math.pow(r, 2) *  Math.PI);
+		System.out.printf("%.6f\n", Math.pow(r, 2) * 2.0);
 	}
 	
 	// J. 수학 2
-	// 1. Hello World 
-	// Import  
+	// 10. 터렛 - 1002 
+	// Import 
 	private static void J10() {
-		System.out.println("Hello World!");
-	}
+		Scanner s = new Scanner(System.in);
+		
+		int T = s.nextInt();
+		
+		for (int i = 0; i < T; i++) {
+			int x1, y1, r1, x2, y2, r2;
+			double d;
+			
+			x1 = s.nextInt();
+			y1 = s.nextInt();
+			r1 = s.nextInt();
+			x2 = s.nextInt();
+			y2 = s.nextInt();
+			r2 = s.nextInt();
+			
+			d = Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
+			
+			if (x1 == x2 && y1 == y2 && r1 == r2)
+				System.out.println(-1);
+			else if ((x1 == x2 && y1 == y2 && r1 != r2) || d > r1 + r2 || d < Math.abs(r1-r2))
+				System.out.println(0);
+			else if ( d == r1 + r2 || d == Math.abs(r1-r2))
+				System.out.println(1);
+			else
+				System.out.println(2);
+		}
+	} 
 	
 	// I. 수학 1
 	// 1. 손익분기점 - 1712 
