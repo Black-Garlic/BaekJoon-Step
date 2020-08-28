@@ -13,7 +13,123 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		J10();
+		K04();
+	}
+	
+	// K. Àç±Í
+	// 1. ÆÑÅä¸®¾ó - 10872 
+	// Import Scanner
+	private static void K01() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		
+		System.out.println(factorial(n));
+	}
+	
+	private static int factorial(int n) {
+		if (n == 0)
+			return 1;
+		else
+			return n * (factorial(n - 1));
+	}
+	
+	// K. Àç±Í
+	// 2. ÇÇº¸³ªÄ¡ ¼ö 5 - 10870 
+	// Import Scanner
+	private static void K02() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		
+		System.out.println(fibonacci(n));
+	}
+	
+	private static int fibonacci(int n) {
+		if (n == 0)
+			return 0;
+		else if (n == 1)
+			return 1;
+		else
+			return fibonacci(n - 1) + fibonacci(n - 2);
+	}
+	
+	// K. Àç±Í
+	// 3. º°Âï±â - 10 - 2447 ¡Ù
+	// Import Scanner
+	static char[][] starArray;
+	
+	private static void K03() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), k = 0, tmp;
+		
+		starArray = new char[n][n];
+		
+		drawBlankStar(0, 0, n, false);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				sb.append(starArray[i][j]);
+			}
+			sb.append("\n");
+		}
+		System.out.println(sb);
+	}
+	
+	
+	private static void drawBlankStar(int x, int y, int n, boolean blank) {
+		if (blank) {
+			for (int i = x; i < x + n; i++) {
+				for (int j = y; j < y + n; j++)
+					starArray[i][j] = ' ';
+			}
+		} else if (n == 1) {
+			starArray[x][y] = '*';
+		} else {
+			int smallN = n / 3;
+			int count = 0;
+			for (int i = x; i < x + n; i += smallN) {
+				for (int j = y; j < y + n; j += smallN) {
+					count++;
+					if (count == 5) {
+						drawBlankStar(i, j, smallN, true);
+					} else {
+						drawBlankStar(i, j, smallN, false);
+					}
+				}
+			}
+		}
+	}
+	
+	// K. Àç±Í
+	// 4. ÇÏ³ëÀÌ Å¾ ÀÌµ¿ ¼ø¼­ - 11729 
+	// Import Scanner
+	private static int hanoiCount = 0;
+	private static StringBuilder hanoiString = new StringBuilder();
+	
+	private static void K04() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		hanoi(n, 1, 3, 2);
+		
+		System.out.println(hanoiCount);
+		System.out.println(hanoiString);
+	}
+	
+	private static void hanoi(int n, int from, int to, int sub) {
+		if (n == 1) {
+			hanoiCount++;
+			hanoiString.append(from + " " + to + "\n");
+		} else {
+			hanoi(n - 1, from, sub, to);
+			hanoiCount++;
+			hanoiString.append(from + " " + to + "\n");
+			hanoi(n - 1, sub, to, from);
+		}
 	}
 	
 	// J. ¼öÇÐ 2
@@ -304,7 +420,7 @@ public class Main {
 	
 	// J. ¼öÇÐ 2
 	// 10. ÅÍ·¿ - 1002 
-	// Import 
+	// Import Scanner
 	private static void J10() {
 		Scanner s = new Scanner(System.in);
 		
