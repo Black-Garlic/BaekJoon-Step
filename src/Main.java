@@ -16,6 +16,49 @@ public class Main {
 		K04();
 	}
 	
+	// L. 브루트 포스
+	// 1. Hello World 
+	// Import 
+	private static void L01() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		String firstLine = br.readLine();
+		String[] firstSplit = firstLine.split(" ");
+		int n = Integer.parseInt(firstSplit[0]);
+		int count = Integer.parseInt(firstSplit[1]);
+		
+		String secondLine = br.readLine();
+		String[] secondSplit = secondLine.split(" ");
+	}
+	
+	// L. 브루트 포스
+	// 1. Hello World 
+	// Import 
+	private static void L02() {
+		System.out.println("Hello World!");
+	}
+	
+	// L. 브루트 포스
+	// 1. Hello World 
+	// Import 
+	private static void L03() {
+		System.out.println("Hello World!");
+	}
+	
+	// L. 브루트 포스
+	// 1. Hello World 
+	// Import 
+	private static void L04() {
+		System.out.println("Hello World!");
+	}
+	
+	// L. 브루트 포스
+	// 1. Hello World 
+	// Import 
+	private static void L05() {
+		System.out.println("Hello World!");
+	}
+	
 	// K. 재귀
 	// 1. 팩토리얼 - 10872 
 	// Import Scanner
