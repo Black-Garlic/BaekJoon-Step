@@ -13,12 +13,12 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		K04();
+		L05();
 	}
 	
 	// L. 브루트 포스
-	// 1. Hello World 
-	// Import 
+	// 1. 블랙잭 - 2798 
+	// Import BuffuredReader
 	private static void L01() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -29,34 +29,160 @@ public class Main {
 		
 		String secondLine = br.readLine();
 		String[] secondSplit = secondLine.split(" ");
+		
+		int max = 0, tmp;
+		
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				for (int k = 0; k < n; k++) {
+					if (i != j && i != k && j != k) {
+						tmp = Integer.parseInt(secondSplit[i]) + Integer.parseInt(secondSplit[j]) + Integer.parseInt(secondSplit[k]);
+						
+						if (tmp == count) {
+							System.out.println(tmp);
+							return;
+						} else if (tmp < count && tmp > max) {
+							max = tmp;
+						}
+					}
+				}				
+			}
+		}
+		System.out.println(max);
 	}
 	
 	// L. 브루트 포스
-	// 1. Hello World 
-	// Import 
+	// 2. 분해합 - 2231 
+	// Import Scanner
 	private static void L02() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), m, length = (int)(Math.log10(n) + 1);
+		
+		m = n - length * 9;
+		
+		for (int i = m; i <= n; i++) {
+			int sum = i, tmp = i;
+			if (i == n) {
+				System.out.println(0);
+				break;
+			}
+			
+			while(tmp > 0) {
+				sum += tmp % 10;
+				tmp /= 10;
+			}
+			
+			if (sum == n) {
+				System.out.println(i);
+				return;
+			}
+		}
 	}
 	
 	// L. 브루트 포스
-	// 1. Hello World 
-	// Import 
+	// 3. 덩치 - 7568 
+	// Import Scanner
 	private static void L03() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		int grade[][] = new int[n][2];
+		
+		for (int i = 0; i < n; i++) {
+			grade[i][0] = s.nextInt();
+			grade[i][1] = s.nextInt();
+		}
+		
+		for (int i = 0; i < n; i++) {
+			int rank = 1;
+			for (int j = 0; j < n; j++) {
+				if (i != j) {
+					if (grade[i][0] < grade[j][0] && grade[i][1] < grade[j][1])
+						rank++;
+				}
+			}
+			System.out.print(rank + " ");
+		}
 	}
 	
 	// L. 브루트 포스
-	// 1. Hello World 
-	// Import 
-	private static void L04() {
-		System.out.println("Hello World!");
+	// 4. 체스판 다싯 칠하기 - 1018 
+	// Import BufferedReader
+	private static void L04() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		String firstLine = br.readLine();
+		String[] firstSplit = firstLine.split(" ");
+		int h = Integer.parseInt(firstSplit[0]);
+		int w = Integer.parseInt(firstSplit[1]);
+		
+		String chess[] = new String[h];
+		
+		for (int i = 0; i < h; i++) {
+			chess[i] = br.readLine();
+		}
+		
+		int checkH = h - 7;
+		int checkW = w - 7;
+		int fixCount = 64;
+			
+		for (int i = 0; i < checkH; i++) {
+			for (int j = 0; j < checkW; j++) {
+				char B = 'B';
+				char W = 'W';
+				int bCount = 0, wCount = 0, tmpCount;
+				
+				for (int m = 0; m < 8; m++) {
+					for (int n = 0; n < 8; n++) {
+						if ((m % 2 == 0 && n % 2 == 0) || (m % 2 == 1 && n % 2 == 1)) {
+							if (chess[i + m].charAt(j + n) != B) {
+								bCount++;
+							}
+							if (chess[i + m].charAt(j + n) != W) {
+								wCount++;
+							}
+						} else {
+							if (chess[i + m].charAt(j + n) == B) {
+								bCount++;
+							}
+							if (chess[i + m].charAt(j + n) == W) {
+								wCount++;
+							}
+						}
+					}
+				}
+				
+				tmpCount = Math.min(bCount, wCount);
+				
+				if (tmpCount < fixCount)
+					fixCount = tmpCount;
+				
+				if (fixCount == 0)
+					break;
+			}
+		}
+		System.out.println(fixCount);
 	}
 	
 	// L. 브루트 포스
-	// 1. Hello World 
-	// Import 
+	// 5. 영화감독 숌 - 1436 
+	// Import Scanner
 	private static void L05() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), count = 0, i = 1;
+		String title = "";
+		
+		while(count < n) {
+			String tmpTitle = i++ + "";
+			if (tmpTitle.contains("666")) {
+				count++;
+				title = tmpTitle;
+			}
+		}
+		
+		System.out.println(title);
 	}
 	
 	// K. 재귀
