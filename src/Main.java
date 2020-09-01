@@ -13,7 +13,300 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		L05();
+		M09();
+	}
+	
+	// M. 정렬
+	// 1. 수 정렬하기 - 2750 
+	// Import BufferedReader
+	private static void M01() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		int array[] = new int[n];
+		for (int i = 0; i < n; i++) {
+			array[i] = Integer.parseInt(br.readLine());
+		}
+		
+		Arrays.sort(array);
+		
+		for (int i = 0; i < n; i++) {
+			System.out.println(array[i]);
+		}
+	}
+	
+	// M. 정렬
+	// 2. 수 정렬하기 2 - 2751
+	// Import BufferedReader
+	private static void M02() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		ArrayList<Integer> array = new ArrayList<>();
+		for (int i = 0; i < n; i++) {
+			array.add(Integer.parseInt(br.readLine()));
+		}
+		
+		Collections.sort(array);
+		
+		for (int i = 0; i < n; i++) {
+			System.out.println(array.get(i));
+		}
+	}
+	
+	private static void quickSort(int[] data, int start, int end) {
+		if (start >= end)
+			return;
+		
+		int key = start, i = start + 1, j = end, tmp;
+		
+		while(i <= j) {
+			while(i <= end && data[i] <= data[key])
+				i++;
+			
+			while(j > start && data[j] >= data[key])
+				j--;
+			
+			if (i > j) {
+				tmp = data[j];
+				data[j] = data[key];
+				data[key] = tmp;
+			} else {
+				tmp = data[i];
+				data[i] = data[j];
+				data[j] = tmp;
+			}
+		}
+		
+		quickSort(data, start, j - 1);
+		quickSort(data, j + 1, end);
+	}
+
+	
+	// M. 정렬
+	// 3. 수 정렬하기  3 - 10989 
+	// Import BufferedReader 
+	private static void M03() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		int array[] = new int[n], newArray[] = new int [n];
+		int count[] = new int[10000];
+		
+		for (int i = 0; i < 10000; i++)
+			count[i] = 0;
+		
+		for (int i = 0; i < n; i++) {
+			array[i] = Integer.parseInt(br.readLine());
+			count[array[i] - 1]++;
+		}
+		
+		for (int i = 1; i < 10000; i++)
+			count[i] = count[i] + count[i - 1];
+		
+		for (int i = 0; i < n; i++) {
+			newArray[count[array[i] - 1] - 1] = array[i];
+			count[array[i] - 1]--;
+		}
+		
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		for (int i = 0; i < n; i++)
+			bw.write(newArray[i] + "\n");
+		
+		bw.close();
+	}
+	
+	// M. 정렬
+	// 4. 통계학 - 2108 
+	// Import BufferedReader
+	private static void M04() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		
+		int sum = 0, min = 4000, max = -4000, fre = 0;
+		boolean dup = false;
+		int count[] = new int[8001], array[] = new int[n];
+		
+		for (int i = 0; i < 8001; i++)
+			count[i] = 0;
+		
+		for (int i = 0; i < n; i++) {
+			array[i] = Integer.parseInt(br.readLine());
+			count[array[i] + 4000]++;
+			
+			if (count[array[i] + 4000] > fre) {
+				fre = count[array[i] + 4000];
+				dup = false;
+			} else if (count[array[i] + 4000] == fre) {
+				dup = true;
+			}
+			
+			if (array[i] > max)
+				max = array[i];
+			
+			if (array[i] < min)
+				min = array[i];
+			
+			sum += array[i];
+		}
+			
+		Arrays.sort(array);
+		
+		System.out.println(Math.round((double)sum / n));
+		System.out.println(array[n / 2]);
+		for (int i = 0; i < 8001; i++) {
+			if (dup && count[i] == fre) {
+				dup = false;
+			} else if (!dup && count[i] == fre) {
+				System.out.println(i - 4000);
+				break;
+			}
+		}
+		if (min == max)
+			System.out.println(0);
+		else
+			if (max >= 0 && min >= 0) {
+				System.out.println(max - min);
+			} else if (max >= 0 && min < 0) {
+				System.out.println(max + Math.abs(min));
+			} else if (max < 0 && min < 0) {
+				System.out.println(max - min);
+			}
+	}
+	
+	// M. 정렬
+	// 5. 소트인사이드 - 1427 
+	// Import Scanner
+	private static void M05() {
+		Scanner s = new Scanner(System.in);
+		
+		String num = s.nextLine();
+		int numArray[] = new int[num.length()];
+		
+		for (int i = 0; i < num.length(); i++)
+			numArray[i] = num.charAt(i) - 48;
+		
+		Arrays.sort(numArray);
+		
+		for (int i = numArray.length - 1; i >= 0; i--)
+			System.out.print(numArray[i]);
+	}
+	
+	// M. 정렬
+	// 6. 좌표 정렬하기 - 11650 
+	// Import BufferedReader
+	private static void M06() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		int[][] array = new int[n][2];
+		
+		for (int i = 0; i < n; i++) {
+			String[] tmp = br.readLine().split(" ");
+					
+			array[i][0] = Integer.parseInt(tmp[0]);
+			array[i][1] = Integer.parseInt(tmp[1]);
+		}
+		
+		Arrays.sort(array, new Comparator<int[]>() {
+			@Override
+			public int compare(int[] o1, int[] o2) {
+				if (o1[0] == o2[0])
+					return Integer.compare(o1[1], o2[1]);
+				else
+					return Integer.compare(o1[0], o2[0]);
+			}
+		});
+		
+		for (int i = 0; i < n; i++) {
+			System.out.println(array[i][0] + " " + array[i][1]);
+		}
+	}
+	
+	// M. 정렬
+	// 7. 좌표 정렬하기 2 - 11651 
+	// Import BufferedReader
+	private static void M07() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		int[][] array = new int[n][2];
+		
+		for (int i = 0; i < n; i++) {
+			String[] tmp = br.readLine().split(" ");
+					
+			array[i][0] = Integer.parseInt(tmp[0]);
+			array[i][1] = Integer.parseInt(tmp[1]);
+		}
+		
+		Arrays.sort(array, new Comparator<int[]>() {
+			@Override
+			public int compare(int[] o1, int[] o2) {
+				if (o1[1] == o2[1])
+					return Integer.compare(o1[0], o2[0]);
+				else
+					return Integer.compare(o1[1], o2[1]);
+			}
+		});
+		
+		for (int i = 0; i < n; i++) {
+			System.out.println(array[i][0] + " " + array[i][1]);
+		}
+	}
+	
+	// M. 정렬
+	// 8. 단어 정렬 - 1181 
+	// Import BufferedReader
+	private static void M08() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		String[] array = new String[n];
+		
+		for (int i = 0; i < n; i++) {
+			array[i] = br.readLine();
+		}
+		
+		Arrays.sort(array);
+		
+		Arrays.sort(array, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				return s1.length() - s2.length();
+			}
+		});
+		
+		for (int i = 0; i < n; i++)
+			if (i == 0)
+				System.out.println(array[i]);
+			else if (!array[i-1].equals(array[i]))
+				System.out.println(array[i]);
+	}
+	
+	// M. 정렬
+	// 9. 나이순 정렬 - 10814 
+	// Import 
+	private static void M09() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		String[][] array = new String[n][2];
+		
+		for (int i = 0; i < n; i++) {
+			array[i] = br.readLine().split(" ");
+		}
+		
+		Arrays.sort(array, new Comparator<String[]>() {
+			@Override
+			public int compare(String[] s1, String[] s2) {
+				return Integer.compare(Integer.parseInt(s1[0]), Integer.parseInt(s2[0]));
+			}
+		});
+		
+		for (int i = 0; i < n; i++)
+			System.out.println(array[i][0] + " " + array[i][1]);
 	}
 	
 	// L. 브루트 포스
