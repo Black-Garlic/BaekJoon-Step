@@ -13,7 +13,260 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		M09();
+		N05();
+	}
+	
+	// N. 백트래킹
+	// 1. N과 M (1) - 15649 
+	// Import Scanner
+	private static void N01() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), m = s.nextInt();
+		
+		ArrayList<Integer> array = new ArrayList<>();
+		ArrayList<Integer> empty = new ArrayList<>();
+		
+		for (int i = 1; i <= n; i++)
+			array.add(i);
+		
+		NandM1(array, empty, m);
+	}
+	
+	private static void NandM1(ArrayList<Integer> array, ArrayList<Integer> pre, int m) {
+		if (m == 1) {
+			for (int i = 0; i < array.size(); i++) {
+				for (int j = 0; j < pre.size(); j++) {
+					System.out.print(pre.get(j) + " ");
+				}
+				System.out.println(array.get(i));
+			}
+		} else {
+			for (int i = 0; i < array.size(); i++) {
+				ArrayList<Integer> tmpArr = new ArrayList<>();
+				ArrayList<Integer> tmpPre = new ArrayList<>();
+				
+				tmpArr.addAll(array);
+				tmpPre.addAll(pre);
+				tmpPre.add(tmpArr.get(i));
+				tmpArr.remove(i);
+				
+				NandM1(tmpArr, tmpPre, m - 1);
+			}
+		}
+	}
+	
+	// N. 백트래킹
+	// 2. N과 M (2) - 15650 
+	// Import Scanner
+	private static void N02() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), m = s.nextInt();
+		
+		ArrayList<Integer> array = new ArrayList<>();
+		ArrayList<Integer> empty = new ArrayList<>();
+		
+		for (int i = 1; i <= n; i++)
+			array.add(i);
+		
+		NandM2(array, empty, m);
+	}
+	
+	private static void NandM2(ArrayList<Integer> array, ArrayList<Integer> pre, int m) {
+		if (pre.size() >= 2) {
+			for (int i = 1; i < pre.size(); i++) {
+				if (pre.get(i-1) > pre.get(i))
+					return;		
+			}
+		}
+		
+		if (m == 1) {
+			for (int i = 0; i < array.size(); i++) {
+				boolean pass = false;
+				for (int j = 0; j < pre.size(); j++) {
+					if (array.get(i) < pre.get(j))
+						pass = true;
+				}
+				
+				if (!pass) {
+					for (int j = 0; j < pre.size(); j++) {
+						System.out.print(pre.get(j) + " ");
+					}
+					
+					System.out.println(array.get(i));	
+				}
+			}
+		} else {
+			for (int i = 0; i < array.size(); i++) {
+				ArrayList<Integer> tmpArr = new ArrayList<>();
+				ArrayList<Integer> tmpPre = new ArrayList<>();
+				
+				tmpArr.addAll(array);
+				tmpPre.addAll(pre);
+				tmpPre.add(tmpArr.get(i));
+				tmpArr.remove(i);
+				
+				NandM2(tmpArr, tmpPre, m - 1);
+			}
+		}
+	}
+	
+	// N. 백트래킹
+	// 3. N과 M (3) - 15651 
+	// Import Scanner
+	private static void N03() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), m = s.nextInt();
+		
+		ArrayList<Integer> array = new ArrayList<>();
+		ArrayList<Integer> empty = new ArrayList<>();
+		
+		for (int i = 1; i <= n; i++)
+			array.add(i);
+		
+		System.out.println(NandM3(array, empty, m));
+	}
+	
+	private static StringBuilder NandM3(ArrayList<Integer> array, ArrayList<Integer> pre, int m) {
+		StringBuilder sb = new StringBuilder();
+		
+		if (m == 1) {
+			for (int i = 0; i < array.size(); i++) {
+				for (int j = 0; j < pre.size(); j++) {
+					sb.append(pre.get(j) + " ");
+				}
+				sb.append(array.get(i) + "\n");
+			}
+		} else {
+			for (int i = 0; i < array.size(); i++) {
+				ArrayList<Integer> tmpPre = new ArrayList<>();
+				
+				tmpPre.addAll(pre);
+				tmpPre.add(array.get(i));
+				
+				sb.append(NandM3(array, tmpPre, m - 1));
+			}
+		}
+		return sb;
+	}
+	
+	// N. 백트래킹
+	// 4. N과 M (4) - 15652 
+	// Import Scanner
+	private static void N04() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), m = s.nextInt();
+		
+		ArrayList<Integer> array = new ArrayList<>();
+		ArrayList<Integer> empty = new ArrayList<>();
+		
+		for (int i = 1; i <= n; i++)
+			array.add(i);
+		
+		System.out.println(NandM4(array, empty, m));
+	}
+	
+	private static StringBuilder NandM4(ArrayList<Integer> array, ArrayList<Integer> pre, int m) {
+		StringBuilder sb = new StringBuilder();
+		
+		if (pre.size() >= 2) {
+			for (int i = 1; i < pre.size(); i++) {
+				if (pre.get(i-1) > pre.get(i))
+					return sb;		
+			}
+		}
+
+		if (m == 1) {
+			for (int i = 0; i < array.size(); i++) {
+				boolean pass = false;
+				for (int j = 0; j < pre.size(); j++) {
+					if (array.get(i) < pre.get(j))
+						pass = true;
+				}
+				
+				if (!pass) {
+					for (int j = 0; j < pre.size(); j++) {
+						sb.append(pre.get(j) + " ");
+					}
+					
+					sb.append(array.get(i) + "\n");	
+				}
+			}
+		} else {
+			for (int i = 0; i < array.size(); i++) {
+				ArrayList<Integer> tmpPre = new ArrayList<>();
+				
+				tmpPre.addAll(pre);
+				tmpPre.add(array.get(i));
+				
+				sb.append(NandM4(array, tmpPre, m - 1));
+			}
+		}
+
+		return sb;
+	}
+	
+	// N. 백트래킹
+	// 5. N-Queen - 9663 
+	// Import Scanner
+	
+	private static int queenCount = 0;
+	
+	private static void N05() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		int[][] array = new int[n][n];
+		
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				array[i][j] = 0;
+			}
+		}
+		
+		checkQueen(array, n);
+		
+		System.out.println(queenCount);
+	}
+	
+	private static void checkQueen(int[][] chess, int n) {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (chess[i][j] != 0) {
+					if (n == 1) {
+						queenCount++;
+					} else {
+						int[][] tmpChess = chess.clone();
+						tmpChess[i][j] = 1;
+						checkQueen(tmpChess, n - 1);	
+					}
+				}
+			}
+		}
+	}
+		
+	// N. 백트래킹
+	// 6. 스도쿠 - 2580 
+	// Import 
+	private static void N06() {
+		System.out.println("Hello World!");
+	}
+	
+	// N. 백트래킹
+	// 7. 연산자 끼워넣기 - 14888 
+	// Import 
+	private static void N07() {
+		System.out.println("Hello World!");
+	}
+	
+	// N. 백트래킹
+	// 8. 스타트와 링크 - 14889 
+	// Import 
+	private static void N08() {
+		System.out.println("Hello World!");
 	}
 	
 	// M. 정렬
