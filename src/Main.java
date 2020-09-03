@@ -13,7 +13,7 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		N05();
+		N08();
 	}
 	
 	// N. 백트래킹
@@ -210,63 +210,270 @@ public class Main {
 	}
 	
 	// N. 백트래킹
-	// 5. N-Queen - 9663 
+	// 5. N-Queen - 9663 ★
 	// Import Scanner
-	
-	private static int queenCount = 0;
+	private static int queenCount = 0, queenN;
+	private static int[] queenCol;
 	
 	private static void N05() {
 		Scanner s = new Scanner(System.in);
 		
-		int n = s.nextInt();
-		int[][] array = new int[n][n];
+		queenN = s.nextInt();
 		
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				array[i][j] = 0;
-			}
-		}
-		
-		checkQueen(array, n);
-		
+		for (int i = 1; i <= queenN; i++) {
+			queenCol = new int[15];
+			queenCol[1] = i;
+	        // 정점은 행을 기준. (i = 1) => 1행(1열), (i = 2) => 2행(1열), (i = 3) => 3행(1열) 
+	        checkQueen(1);
+	    }
+
 		System.out.println(queenCount);
 	}
 	
-	private static void checkQueen(int[][] chess, int n) {
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if (chess[i][j] != 0) {
-					if (n == 1) {
-						queenCount++;
-					} else {
-						int[][] tmpChess = chess.clone();
-						tmpChess[i][j] = 1;
-						checkQueen(tmpChess, n - 1);	
-					}
-				}
-			}
-		}
+	private static void checkQueen(int row) {
+		if (row == queenN) {
+	        ++queenCount;
+	    } else {
+	        for (int i = 1; i <= queenN; i++) {
+	        	queenCol[row + 1] = i;
+	            if (isPossible(row + 1)) {
+	            	checkQueen(row + 1);
+	            } else {
+	            	queenCol[row + 1] = 0;    
+	            }
+	        }
+	    }
+		queenCol[row] = 0;
+	}
+
+	public static boolean isPossible(int c) {
+	    for (int i = 1; i < c; i++) {
+	        // 같은 행, 열
+	        if (queenCol[i] == queenCol[c]) {
+	            return false;
+	        }
+	        // 대각선
+	        if (Math.abs(queenCol[i] - queenCol[c]) == Math.abs(i - c)) {
+	            return false;
+	        }
+	    }
+	    return true;
 	}
 		
 	// N. 백트래킹
 	// 6. 스도쿠 - 2580 
-	// Import 
-	private static void N06() {
-		System.out.println("Hello World!");
+	// Import BufferedReader
+	private static int[][] sdoku = new int[9][9];
+	private static ArrayList<int[]> emptySdoku = new ArrayList<>();
+	
+	private static void N06() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		for (int i = 0; i < 9; i++) {
+			String[] split = br.readLine().split(" ");
+			for (int j = 0; j < 9; j++) {
+				sdoku[i][j] = Integer.parseInt(split[j]);
+				if (sdoku[i][j] == 0) {
+					emptySdoku.add(new int[] {i, j});
+				}
+			}	
+		}
+		solveSdoku(0);
+	}
+	
+	private static void solveSdoku(int index) {
+		if (index == emptySdoku.size()) {
+			for (int i = 0; i < 9; i++) {
+				for (int j = 0; j < 9; j++) {
+					System.out.print(sdoku[i][j] + " ");
+				}
+				System.out.println();
+			}
+			System.exit(0);
+		}
+		
+		for (int i = 1; i <= 9; i++) {
+			if (checkSdokuRow(index, i) && checkSdokuCol(index, i) && checkSdokuBox(index, i)) {
+				sdoku[emptySdoku.get(index)[0]][emptySdoku.get(index)[1]] = i;
+				solveSdoku(index + 1);
+			}
+			if (i == 9)
+				sdoku[emptySdoku.get(index)[0]][emptySdoku.get(index)[1]] = 0;
+		}
+	}
+	
+	private static boolean checkSdokuRow(int index, int num) {
+		for (int i = 0; i < 9; i++) {
+			if (emptySdoku.get(index)[1] == i)
+				continue;
+			if (sdoku[emptySdoku.get(index)[0]][i] == num)
+				return false;
+		}
+		return true;
+	}
+	
+	private static boolean checkSdokuCol(int index, int num) {
+		for (int i = 0; i < 9; i++) {
+			if (emptySdoku.get(index)[0] == i)
+				continue;
+			if (sdoku[i][emptySdoku.get(index)[1]] == num)
+				return false;
+		}
+		return true;
+	}
+
+	private static boolean checkSdokuBox(int index, int num) {
+		int xBox = emptySdoku.get(index)[0] / 3;
+		int yBox = emptySdoku.get(index)[1] / 3;
+		xBox *= 3;
+		yBox *= 3;
+		
+		for (int i = xBox; i < xBox + 3; i++) {
+			for (int j = yBox; j < yBox + 3; j++) {
+				if (emptySdoku.get(index)[0] == i && emptySdoku.get(index)[1] == j)
+					continue;
+				if (sdoku[i][j] != 0 && sdoku[i][j] == num)
+					return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	// N. 백트래킹
 	// 7. 연산자 끼워넣기 - 14888 
-	// Import 
-	private static void N07() {
-		System.out.println("Hello World!");
+	// Import BufferedReader
+	private static int n07Count, n07Max = Integer.MIN_VALUE, n07Min = Integer.MAX_VALUE;
+	private static int[] n07Array;
+	
+	private static void N07() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		n07Count = Integer.parseInt(br.readLine());
+		n07Array = new int[n07Count];
+		
+		String[] tmpNum = br.readLine().split(" ");
+		
+		for (int i = 0; i < n07Count; i++)
+			n07Array[i] = Integer.parseInt(tmpNum[i]);
+		
+		String[] tmpOperator = br.readLine().split(" ");
+		int[] operator = {0, 0, 0, 0};
+		
+		
+		for (int i = 0; i < 4; i++)
+			operator[i] = Integer.parseInt(tmpOperator[i]);
+		
+		checkOperator(1, n07Array[0], operator);
+		
+		System.out.println(n07Max);
+		System.out.println(n07Min);
+	}
+	
+	private static void checkOperator(int index, int sum, int[] operator) {
+		if (index == n07Count) {
+			if (n07Max < sum)
+				n07Max = sum;
+			if (n07Min > sum)
+				n07Min = sum;
+			
+			return;
+		}
+		
+		for (int i = 0; i < 4; i++) {
+			if (operator[i] != 0) {
+				int[] tmpOperator = operator.clone();
+				tmpOperator[i]--;
+				
+				int tmpSum = sum;
+				
+				if (i == 0) {
+					tmpSum += n07Array[index];
+				} else if (i == 1) {
+					tmpSum -= n07Array[index];
+				} else if (i == 2) {
+					tmpSum *= n07Array[index];
+				} else if (i == 3) {
+					tmpSum /= n07Array[index];
+				}
+				
+				checkOperator(index + 1, tmpSum, tmpOperator);
+			}
+		}
 	}
 	
 	// N. 백트래킹
 	// 8. 스타트와 링크 - 14889 
-	// Import 
-	private static void N08() {
-		System.out.println("Hello World!");
+	// Import BufferedReader
+	private static int[][] n08Array;
+	private static int n08Score = Integer.MAX_VALUE, n08Count;
+	private static boolean[] n08Check;
+	
+	private static void N08() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		n08Count = Integer.parseInt(br.readLine());
+		
+		n08Array = new int[n08Count][n08Count];
+		
+		for (int i = 0; i < n08Count; i++) {
+			String[] tmpScore = br.readLine().split(" ");
+			
+			for (int j = 0; j < n08Count; j++)
+				n08Array[i][j] = Integer.parseInt(tmpScore[j]);
+		}
+		
+		n08Check = new boolean[n08Count];
+		
+		makeTeam(0, 0);
+		
+		System.out.println(n08Score);
+	}
+	
+	private static void makeTeam(int v, int n) {
+		if (n == n08Count / 2) {
+			getScore();
+			return;
+		}
+		
+		for (int i = v; i < n08Count; i++) {
+			if (n08Check[i])
+				continue;
+			
+			n08Check[i] = true;
+			makeTeam(i, n + 1);
+			n08Check[i] = false;
+		}
+	}
+	
+	private static void getScore() {
+		int[] a = new int[n08Count / 2];
+		int[] b = new int[n08Count / 2];
+		int aIndex = 0, bIndex = 0;
+		
+		for (int i = 0; i < n08Count; i++) {
+			if (n08Check[i])
+				a[aIndex++] = i;
+			else
+				b[bIndex++] = i;
+		}
+		
+		int aState = getState(a);
+		int bState = getState(b);
+		int gap = Math.abs(aState - bState);
+		n08Score = Math.min(gap, n08Score);
+	}
+	
+	private static int getState(int[] array) {
+		int result = 0;
+		for (int i = 0; i < n08Count / 2; i++) {
+			for (int j = 0; j < n08Count / 2; j++) {
+				result += n08Array[array[i]][array[j]];
+				result += n08Array[array[j]][array[i]];
+			}
+		}
+		
+		return result / 2;
 	}
 	
 	// M. 정렬
