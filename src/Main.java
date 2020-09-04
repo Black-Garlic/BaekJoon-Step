@@ -13,7 +13,214 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		N08();
+		O06();
+	}
+	
+	// O. 동적 계획법 1단계
+	// 1. 피보나치 수 2 - 2748 
+	// Import Scanner
+	private static void O01() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		
+		long[] array = new long[n + 1];
+		
+		for (int i = 0; i <= n; i++) {
+			if (i == 0)
+				array[i] = 0;
+			else if (i == 1)
+				array[i] = 1;
+			else
+				array[i] = array[i - 1] + array[i - 2];
+		}
+		
+		System.out.println(array[n]);
+	}
+	
+	// O. 동적 계획법 1단계
+	// 2. 피보나치 함수 - 1003 
+	// Import Scanner
+	private static void O02() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		
+		int[][] count = new int[41][2];
+		
+		count[0][0] = 1;
+		count[1][1] = 1;
+		
+		for (int i = 2; i < 41; i++) {
+			for (int j = 0; j < 2; j++) {
+				count[i][j] = count[i-1][j] + count[i-2][j];
+			}
+		}
+		
+		for (int i = 0; i < n; i++) {
+			int num = s.nextInt();
+			System.out.println(count[num][0] + " " + count[num][1]);
+		}
+	}
+	
+	// O. 동적 계획법 1단계
+	// 3. 01타일 - 1904
+	// Import Scanner
+	private static void O03() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		
+		int[] array = new int[n + 1];
+
+		array[1] = 1;
+		if (n > 1)
+			array[2] = 2;
+				
+		for (int i = 3; i <= n; i++) {
+			array[i] = (array[i - 1] + array[i - 2]) % 15746;
+		}
+		
+		System.out.println(array[n]);
+	}
+	
+	// O. 동적 계획법 1단계
+	// 4. 파도반 수열 - 9461 
+	// Import Scanner
+	private static void O04() {
+		Scanner s = new Scanner(System.in);
+		
+		int T = s.nextInt();
+		
+		for (int i = 0; i < T; i++) {
+			int n = s.nextInt();
+			
+			long[] array = new long[n];
+			
+			array[0] = 1;
+			if (n > 1)
+				array[1] = 1;
+			if (n > 2)
+				array[2] = 1;
+			if (n > 3)
+				array[3] = 2;
+			if (n > 4)
+				array[4] = 2;
+
+			for (int j = 5; j < n; j++) {
+				array[j] = array[j - 1] + array[j - 5];
+			}
+			
+			System.out.println(array[n - 1]);
+		}
+	}
+	
+	// O. 동적 계획법 1단계
+	// 5. RGB거리 - 1149 
+	// Import BufferedReader
+	private static void O05() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		
+		int[][] list = new int[n][3];
+		int[][] cost = new int[n][3];
+		
+		for (int i = 0; i < n; i++) {
+			String[] RGB = br.readLine().split(" ");
+			
+			for (int j = 0; j < 3; j++)
+				list[i][j] = Integer.parseInt(RGB[j]);
+		}
+		
+		cost[0][0] = list[0][0];
+		cost[0][1] = list[0][1];
+		cost[0][2] = list[0][2];
+		
+		for (int i = 1; i < n; i++) {
+			cost[i][0] = Math.min(cost[i - 1][1], cost[i - 1][2]) + list[i][0];
+			cost[i][1] = Math.min(cost[i - 1][0], cost[i - 1][2]) + list[i][1];
+			cost[i][2] = Math.min(cost[i - 1][0], cost[i - 1][1]) + list[i][2];
+		}
+		
+		System.out.println(Math.min(Math.min(cost[n-1][0], cost[n-1][1]), cost[n-1][2]));
+	}
+	
+	// O. 동적 계획법 1단계
+	// 6. 정수 삼각형 - 1932 
+	// Import 
+	private static void O06() {
+		System.out.println("Hello World!");
+	}
+	
+	// O. 동적 계획법 1단계
+	// 7. 계단 오그리 - 2579 
+	// Import 
+	private static void O07() {
+		System.out.println("Hello World!");
+	}
+	
+	// O. 동적 계획법 1단계
+	// 8. 1로 만들기 - 1463 
+	// Import 
+	private static void O08() {
+		System.out.println("Hello World!");
+	}
+	
+	// O. 동적 계획법 1단계
+	// 9. 쉬운 계단 수 - 10844 
+	// Import 
+	private static void O09() {
+		System.out.println("Hello World!");
+	}
+	
+	// O. 동적 계획법 1단계
+	// 10. 포도주 시식 - 2156 
+	// Import 
+	private static void O10() {
+		System.out.println("Hello World!");
+	}
+	
+	// O. 동적 계획법 1단계
+	// 11. 가징 긴  증가하는 부분 수열 - 11053
+	// Import 
+	private static void O11() {
+		System.out.println("Hello World!");
+	}
+	
+	// O. 동적 계획법 1단계
+	// 12. 가장 긴 바이토닉 부분 수열 - 11054 
+	// Import 
+	private static void O12() {
+		System.out.println("Hello World!");
+	}
+	
+	// O. 동적 계획법 1단계
+	// 13. 전깃줄 - 2565 
+	// Import 
+	private static void O13() {
+		System.out.println("Hello World!");
+	}
+	
+	// O. 동적 계획법 1단계
+	// 14. LCS - 9251 
+	// Import 
+	private static void O14() {
+		System.out.println("Hello World!");
+	}
+	
+	// O. 동적 계획법 1단계
+	// 15. 연속합 - 1912 
+	// Import 
+	private static void O15() {
+		System.out.println("Hello World!");
+	}
+	
+	// O. 동적 계획법 1단계
+	// 16. 평범한 배낭 - 12865
+	// Import 
+	private static void O16() {
+		System.out.println("Hello World!");
 	}
 	
 	// N. 백트래킹
