@@ -13,7 +13,7 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		O06();
+		O10();
 	}
 	
 	// O. 동적 계획법 1단계
@@ -148,37 +148,145 @@ public class Main {
 	
 	// O. 동적 계획법 1단계
 	// 6. 정수 삼각형 - 1932 
-	// Import 
-	private static void O06() {
-		System.out.println("Hello World!");
+	// Import Scanner
+	private static void O06(){
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		int[][] array = new int[n + 1][n + 1];
+		int max = 0;
+		
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= i; j++) {
+				array[i][j] = s.nextInt();
+				if (j == 1) {
+					array[i][j] = array[i][j] + array[i - 1][j];
+				} else if (i == j) {
+					array[i][j] = array[i][j] + array[i - 1][j - 1];
+				} else {
+					array[i][j] = array[i][j] + Math.max(array[i - 1][j], array[i - 1][j - 1]);
+				}
+				if (array[i][j] > max)
+					max = array[i][j];
+			}
+		}
+		
+		System.out.println(max);
 	}
 	
 	// O. 동적 계획법 1단계
-	// 7. 계단 오그리 - 2579 
-	// Import 
+	// 7. 계단 오르기 - 2579 
+	// Import Scanner
 	private static void O07() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		
+		int[] score = new int[n+1];
+		int[] max = new int[n+1];
+		int noJump = 0, jump = 0;
+		
+		for (int i = 1; i <= n; i++)
+			score[i] = s.nextInt();
+		
+		max[1] = score[1];
+		if (n > 1)
+			max[2] = score[1] + score[2];
+		
+		for (int i = 3; i <= n; i++) {
+			noJump = score[i] + score[i - 1] + max[i - 3];
+			jump = score[i] + max[i - 2];
+			
+			max[i] = Math.max(noJump, jump);
+		}
+		
+		System.out.println(max[n]);
 	}
 	
 	// O. 동적 계획법 1단계
 	// 8. 1로 만들기 - 1463 
-	// Import 
+	// Import Scanner
 	private static void O08() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		int[] count = new int[n + 1];
+		
+		count[0] = 0;
+		count[1] = 0;
+		for (int i = 2; i <= n; i++) {
+			count[i] = count[i - 1] + 1;
+			
+			if (i % 2 == 0)
+				count[i] = Math.min(count[i], count[i / 2] + 1);
+			if (i % 3 == 0)
+				count[i] = Math.min(count[i], count[i / 3] + 1);
+		}
+	
+		
+		System.out.println(count[n]);
 	}
 	
 	// O. 동적 계획법 1단계
 	// 9. 쉬운 계단 수 - 10844 
-	// Import 
+	// Import Scanner 
 	private static void O09() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), mod = 1000000000;
+		long sum = 0;
+		long[][] count = new long[n + 1][10];
+		
+		count[1][0] = 0;
+		for (int i = 1; i < 10; i++) {
+			count[1][i] = 1;
+		}
+		
+		for (int i = 2; i <= n; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (j == 0) {
+					count[i][j] = count[i - 1][1];
+				} else if (j == 9) {
+					count[i][j] = count[i - 1][8];
+				} else {
+					count[i][j] = count[i - 1][j - 1] + count[i - 1][j + 1];
+				}
+				
+				count[i][j] %= mod;
+			}
+			
+		}
+		
+		for (int i = 0; i < 10; i++)
+			sum += count[n][i];
+		
+		System.out.println(sum % mod);
 	}
 	
 	// O. 동적 계획법 1단계
 	// 10. 포도주 시식 - 2156 
-	// Import 
+	// Import Scanner
 	private static void O10() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		
+		int[] score = new int[n+1];
+		int[] max = new int[n+1];
+		
+		for (int i = 1; i <= n; i++)
+			score[i] = s.nextInt();
+		
+		max[0] = 0;
+		max[1] = score[1];
+		if (n > 1)
+			max[2] = score[1] + score[2];
+		
+		for (int i = 3; i <= n; i++) {
+			max[i] = Math.max(max[i - 1], Math.max(max[i - 2] + score[i],  max[i - 3] + score[i - 1] + score[i]));
+		}
+		
+		System.out.println(max[n]);
 	}
 	
 	// O. 동적 계획법 1단계
@@ -188,7 +296,7 @@ public class Main {
 		System.out.println("Hello World!");
 	}
 	
-	// O. 동적 계획법 1단계
+	// O. 동적 계획법 1단계 
 	// 12. 가장 긴 바이토닉 부분 수열 - 11054 
 	// Import 
 	private static void O12() {
