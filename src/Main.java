@@ -13,7 +13,7 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		O10();
+		O16();
 	}
 	
 	// O. 동적 계획법 1단계
@@ -291,44 +291,189 @@ public class Main {
 	
 	// O. 동적 계획법 1단계
 	// 11. 가징 긴  증가하는 부분 수열 - 11053
-	// Import 
+	// Import Scanner
 	private static void O11() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), max = 0;
+		int[] number = new int[n + 1];
+		int[] count = new int[n + 1];
+		
+		for (int i = 1; i <= n; i++)
+			number[i] = s.nextInt();
+		
+		count[1] = 1;
+		
+		for (int i = 2; i <= n; i++) {
+			count[i] = 1;
+			for (int j = 1; j <= i; j++) {
+				if (number[j] < number[i] && count[j] >= count[i])
+					count[i] = count[j] + 1;
+			}
+		}
+		
+		for (int i = 1; i <= n; i++)
+			if (count[i] > max)
+				max = count[i];
+		
+		System.out.println(max);
 	}
 	
 	// O. 동적 계획법 1단계 
 	// 12. 가장 긴 바이토닉 부분 수열 - 11054 
-	// Import 
+	// Import Scanner
 	private static void O12() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), max = 0;
+		int[] number = new int[n + 1];
+		int[][] count = new int[n + 1][2];
+		
+		for (int i = 1; i <= n; i++) {
+			number[i] = s.nextInt();
+		}
+			
+		
+		count[1][0] = 1;
+		count[n][1] = 1;
+		
+		for (int i = 2; i <= n; i++) {
+			count[i][0] = 1;
+			for (int j = 1; j <= i; j++) {
+				if (number[i] > number[j])
+					count[i][0] = Math.max(count[i][0], count[j][0] + 1);
+			}
+		}
+		
+		for (int i = n - 1; i > 0; i--) {
+			count[i][1] = 1;
+			for (int j = n; j > i; j--) {
+				if (number[i] > number[j])
+					count[i][1] = Math.max(count[i][1], count[j][1] + 1);
+			}
+		}
+		
+		for (int i = 1; i <= n; i++)
+			if (count[i][0] + count[i][1] - 1 > max)
+				max = count[i][0] + count[i][1] - 1;
+		
+		System.out.println(max);
 	}
 	
 	// O. 동적 계획법 1단계
 	// 13. 전깃줄 - 2565 
-	// Import 
+	// Import Scanner
 	private static void O13() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), max = 0;
+		int[][] line = new int[n + 1][2];
+		int[] count = new int[n + 1];
+		
+		for (int i = 1; i <= n; i++) {
+			line[i][0] = s.nextInt();
+			line[i][1] = s.nextInt();
+		}
+		
+		Arrays.sort(line, Comparator.comparingInt(o1 -> o1[0]));
+		
+		count[1] = 1;
+		
+		for (int i = 2; i <= n; i++) {
+			count[i] = 1;
+			for (int j = 1; j <= n; j++) {
+				if (line[i][1] > line[j][1]) {
+					count[i] = Math.max(count[i], count[j] + 1);
+				}
+			}
+		}
+		
+		for (int i = 1; i <= n; i++)
+			if (count[i] > max)
+				max = count[i];
+		
+		System.out.println(n - max);
 	}
 	
 	// O. 동적 계획법 1단계
-	// 14. LCS - 9251 
-	// Import 
+	// 14. LCS - 9251 ★
+	// Import Scanner
 	private static void O14() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		String first = s.nextLine();
+		String second = s.nextLine();
+		
+		int[][] count = new int[first.length() + 1][second.length() + 1];
+		
+		count[1][1] = 0;
+		
+		for (int i = 1; i <= first.length(); i++) {
+			for (int j = 1; j <= second.length(); j++) {
+				if (first.charAt(i - 1) != second.charAt(j - 1))
+					count[i][j] = Math.max(count[i][j - 1], count[i - 1][j]);
+				else
+					count[i][j] = count[i - 1][j - 1] + 1;
+			}
+		}
+		
+		System.out.println(count[first.length()][second.length()]);
 	}
 	
 	// O. 동적 계획법 1단계
 	// 15. 연속합 - 1912 
-	// Import 
+	// Import Scanner
 	private static void O15() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), max = Integer.MIN_VALUE;
+		int[] array = new int[n + 1];
+		int[] sum = new int[n + 1];
+		
+		for (int i = 1; i <= n; i++) {
+			array[i] = s.nextInt();
+			sum[i] = Integer.MIN_VALUE;
+		}
+		
+		sum[1] = array[1];
+		
+		for (int i = 1; i <= n; i++) {
+			sum[i] = Math.max(array[i], sum[i - 1] + array[i]); 
+		}
+		
+		
+		for (int i = 1; i <= n; i++)
+			if (sum[i] > max)
+				max = sum[i];
+		
+		System.out.println(max);
 	}
 	
 	// O. 동적 계획법 1단계
 	// 16. 평범한 배낭 - 12865
-	// Import 
+	// Import Scanner
 	private static void O16() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), k = s.nextInt();
+		int[] w = new int[n + 1];
+		int[] v = new int[n + 1];
+		int[][] value = new int[n + 1][k + 1];
+		
+		for (int i = 1; i <= n; i++) {
+			w[i] = s.nextInt();
+			v[i] = s.nextInt();
+		}
+		
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= k; j++) {
+				value[i][j] = value[i - 1][j];
+				if (j - w[i] >= 0)
+					value[i][j] = Math.max(value[i - 1][j], value[i - 1][j-w[i]] + v[i]);
+			}
+		}
+		
+		System.out.println(value[n][k]);
 	}
 	
 	// N. 백트래킹
