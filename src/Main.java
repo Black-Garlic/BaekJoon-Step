@@ -3,7 +3,6 @@ import java.util.*;
 
 public class Main {
 	/*
-	// Frame
 	// A. 입출력과 사칙연산
 	// 1. Hello World 
 	// Import 
@@ -13,7 +12,128 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		O16();
+		P04();
+	}
+	
+	// P. 그리디 알고리즘
+	// 1. 동전 0 - 11047 
+	// Import Scanner
+	private static void P01() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), k = s.nextInt(), tmp = 0, count = 0, index = n - 1;
+		int[] coins = new int[n];
+		
+		for (int i = 0; i < n; i++) {
+			coins[i] = s.nextInt();
+		}
+		
+		while(tmp < k) {
+			if (k - tmp > coins[index]) {
+				tmp += coins[index];
+				count++;
+			} else if (k - tmp == coins[index]) {
+				count++;
+				break;
+			} else {
+				index--;
+			}
+		}
+		
+		System.out.println(count);
+	}
+	
+	// P. 그리디 알고리즘
+	// 2. 회의실배정 - 1931 
+	// Import BufferedReader
+	private static void P02() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		int[][] time = new int[n][2]; 
+		
+		for (int i = 0; i < n; i++) {
+			String[] tmp = br.readLine().split(" ");
+			
+			time[i][0] = Integer.parseInt(tmp[0]);
+			time[i][1] = Integer.parseInt(tmp[1]);
+		}
+		
+		Arrays.sort(time, (o1, o2) -> {
+			if (o1[1] == o2[1]) {
+				return Integer.compare(o1[0], o2[0]);
+			} else {
+				return Integer.compare(o1[1], o2[1]);
+			}
+		});
+		
+		int count = 0, end = -1;
+		
+		for (int i = 0; i < n; i++) {
+			if (time[i][0] >= end) {
+				end = time[i][1];
+				count++;
+			}
+		}
+		
+		System.out.println(count);
+	}
+	
+	// P. 그리디 알고리즘
+	// 3. ATM - 11399
+	// Import Scanner
+	private static void P03() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), sum = 0;
+		int[] time = new int[n];
+		
+		for (int i = 0; i < n; i++) {
+			time[i] = s.nextInt();
+		}
+		
+		Arrays.sort(time);
+		
+		for (int i = 0; i < n; i++)
+			sum += time[i] * (n - i);
+		
+		System.out.println(sum);
+	}
+	
+	// P. 그리디 알고리즘
+	// 4. 잃어버린 괄호
+	// Import Scanner
+	private static void P04() {
+		Scanner s = new Scanner(System.in);
+		
+		String[] minusSplit = s.nextLine().split("\\-");
+		int sum = 0;
+		
+		for (int i = 0; i < minusSplit.length; i++) {			
+			if (i == 0) {
+				if (minusSplit[i].contains("+")) {
+					String[] plusSplit = minusSplit[i].split("\\+");
+					
+					for (int j = 0; j < plusSplit.length; j++) {
+						sum += Integer.parseInt(plusSplit[j]);
+					}
+				} else {
+					sum += Integer.parseInt(minusSplit[i]);
+				}
+			} else {
+				if (minusSplit[i].contains("+")) {
+					String[] plusSplit = minusSplit[i].split("\\+");
+					
+					for (int j = 0; j < plusSplit.length; j++) {
+						sum -= Integer.parseInt(plusSplit[j]);
+					}
+				} else {
+					sum -= Integer.parseInt(minusSplit[i]);
+				}
+			}
+		}
+		
+		System.out.println(sum);
 	}
 	
 	// O. 동적 계획법 1단계
