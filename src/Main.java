@@ -12,7 +12,153 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		P04();
+		Q04();
+	}
+	
+	// Q. 수학 3
+	// 1. 배수와 약수 - 5086 
+	// Import BufferedReader
+	private static void Q01() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		while(true) {
+			String[] line = br.readLine().split(" ");
+			int[] num = new int[2];
+			num[0] = Integer.parseInt(line[0]);
+			num[1] = Integer.parseInt(line[1]);
+			
+			if (num[0] == 0 && num[1] == 0)
+				break;
+			
+			if (num[0] > num[1]) {
+				if (num[0] % num[1] == 0) {
+					System.out.println("multiple");
+				} else {
+					System.out.println("neither");	
+				}
+			} else if (num[0] < num[1]) {
+				if (num[1] % num[0] == 0) {
+					System.out.println("factor");
+				} else {
+					System.out.println("neither");
+				}
+			} else {
+				System.out.println("neither");
+			}
+		}
+		br.close();
+	}
+	
+	// Q. 수학 3
+	// 2. 약수 - 1037
+	// Import Scanner
+	private static void Q02() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		int[] num = new int[n];
+		long result = 1;
+		
+		for (int i = 0; i < n; i++)
+			num[i] = s.nextInt();
+		
+		Arrays.sort(num);
+		
+		result = num[0] * num[n - 1];
+		
+		System.out.println(result);
+	}
+	
+	// Q. 수학 3
+	// 3. 소인수분해 - 11653
+	// Import Scanner
+	private static void Q03() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), i = 2;
+		
+		while (n > 1) {
+			if (n % i == 0) {
+				System.out.println(i);
+				n /= i;
+			} else {
+				i++;
+			}
+		}
+	}
+	
+	// Q. 수학 3
+	// 4. 최대공약수와 최소공배수 - 2609 
+	// Import Scanner
+	private static void Q04() {
+		Scanner s = new Scanner(System.in);
+		
+		int a = s.nextInt(), b = s.nextInt(), i = 2, max = 1, min = a * b;
+		int goal = Math.min(a, b);
+		
+		while(i < goal) {
+			if (a % i == 0 && b % i == 0) {
+				a /= i;
+				b /= i;
+				max *= i;
+			} else {
+				i++;
+			}
+		}
+		
+		min = max * a * b;
+		
+		System.out.println(max);
+		System.out.println(min);
+	}
+	
+	// Q. 수학 3
+	// 5. 검문 - 2981 
+	// Import 
+	private static void Q05() {
+		System.out.println("Hello World!");
+	}
+	
+	// Q. 수학 3
+	// 6. 링 - 3036
+	// Import 
+	private static void Q06() {
+		System.out.println("Hello World!");
+	}
+	
+	// Q. 수학 3
+	// 7. 이항 계수 1 - 11050 
+	// Import 
+	private static void Q07() {
+		System.out.println("Hello World!");
+	}
+	
+	// Q. 수학 3
+	// 8. 이항 계수 2 - 11051
+	// Import 
+	private static void Q08() {
+		System.out.println("Hello World!");
+	}
+	
+	// Q. 수학 3
+	// 9. 패션왕 신해빈 - 9375 
+	// Import 
+	private static void Q09() {
+		System.out.println("Hello World!");
+	}
+	
+	// Q. 수학 3
+	// 10. 팩토리얼 0의 개수 
+	// Import 
+	private static void Q10() {
+		System.out.println("Hello World!");
+	}
+	
+	// Q. 수학 3
+	// 11. 조합 0의 개수
+	// Import 
+	private static void Q11() {
+		System.out.println("Hello World!");
 	}
 	
 	// P. 그리디 알고리즘
