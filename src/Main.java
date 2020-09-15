@@ -12,7 +12,7 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		Q04();
+		Q11();
 	}
 	
 	// Q. 수학 3
@@ -113,52 +113,170 @@ public class Main {
 	}
 	
 	// Q. 수학 3
-	// 5. 검문 - 2981 
-	// Import 
+	// 5. 검문 - 2981 ★
+	// Import Scanner
 	private static void Q05() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		int[] num = new int[n];
+		
+		for (int i = 0; i < n; i++)
+			num[i] = s.nextInt();
+		
+		Arrays.sort(num);
+		
+		int x = num[1] - num[0];
+		
+		for (int i = 2; i < num.length; i++)
+			x = gcb(x, num[i] - num[i - 1]);
+		
+		StringBuffer sb = new StringBuffer();
+		
+		for (int i = 2; i <= x; i++) {
+			if (x % i == 0)
+				sb.append(i + " ");
+		}
+		
+		System.out.println(sb);
+	}
+	
+	public static int gcb(int a, int b) {
+		if (a % b == 0)
+			return b;
+		else
+			return gcb(b, a % b);
 	}
 	
 	// Q. 수학 3
 	// 6. 링 - 3036
-	// Import 
+	// Import Scanner
 	private static void Q06() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), first = s.nextInt();
+		int[][] rings = new int[n -1][2];
+		
+		for (int i = 0; i < n - 1; i++) {
+			rings[i][0] = s.nextInt();
+			rings[i][1] = gcb(first, rings[i][0]);
+			
+			System.out.println(first / rings[i][1] + "/" + rings[i][0] / rings[i][1]);
+		}
 	}
 	
 	// Q. 수학 3
 	// 7. 이항 계수 1 - 11050 
-	// Import 
+	// Import Scanner
 	private static void Q07() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), k = s.nextInt();
+		
+		if (k < 0 || k > n) {
+			System.out.println(0);
+		} else {
+			System.out.println(factorial(n) / (factorial(k) * factorial(n - k)));
+		}
 	}
 	
 	// Q. 수학 3
 	// 8. 이항 계수 2 - 11051
-	// Import 
+	// Import Scanner
 	private static void Q08() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), k = s.nextInt();
+		
+		int[][] list = new int[1001][1001];
+		
+		list[0][0] = list[1][0] = list[1][1] = 1;
+		
+		for (int i = 2; i <= n; i++) {
+			for (int j = 0; j <= i; j++) {
+				if (i == j || j == 0)
+					list[i][j] = 1;
+				else
+					list[i][j] = list[i - 1][j - 1] + list[i - 1][j];
+				
+				list[i][j] %= 10007;
+			}
+		}
+		
+		System.out.println(list[n][k]);
 	}
 	
 	// Q. 수학 3
-	// 9. 패션왕 신해빈 - 9375 
-	// Import 
-	private static void Q09() {
-		System.out.println("Hello World!");
+	// 9. 패션왕 신해빈 - 9375
+	// Import BufferedReader
+	private static void Q09() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int T = Integer.parseInt(bf.readLine());
+		
+		for (int i = 0; i < T; i++) {
+			int n = Integer.parseInt(bf.readLine());
+			HashMap<String, Integer> cloth = new HashMap<>();
+			
+			for (int j = 0; j < n; j++) {
+				String[] tmp = bf.readLine().split(" ");
+				if (cloth.containsKey(tmp[1]))
+					cloth.put(tmp[1], cloth.get(tmp[1]) + 1);
+				else
+					cloth.put(tmp[1], 1);
+			}
+			
+			int result = 1;
+			
+			for (int val : cloth.values())
+				result *= val + 1;
+			
+			System.out.println(result - 1);
+		}
 	}
 	
 	// Q. 수학 3
-	// 10. 팩토리얼 0의 개수 
-	// Import 
+	// 10. 팩토리얼 0의 개수 - 1676
+	// Import Scanner
 	private static void Q10() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), count = 0;
+		
+		for (int i = 5; i <= n; i *= 5)
+			count += n / i;
+				
+		System.out.println(count);
 	}
 	
 	// Q. 수학 3
-	// 11. 조합 0의 개수
-	// Import 
+	// 11. 조합 0의 개수 - 2004
+	// Import Scanner
 	private static void Q11() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		long n = s.nextLong(), m = s.nextLong(), nm = n - m;
+		long count2 = 0, count5 = 0;
+		
+		for (long i = 2; i <= n; i *= 2)
+			count2 += n / i;
+		
+		for (long i = 5; i <= n; i *= 5)
+			count5 += n / i;
+		
+		for (long i = 2; i <= m; i *= 2)
+			count2 -= m / i;
+		
+		for (long i = 5; i <= m; i *= 5)
+			count5 -= m / i;
+
+		for (long i = 2; i <= nm; i *= 2)
+			count2 -= nm / i;
+		
+		for (long i = 5; i <= nm; i *= 5)
+			count5 -= nm / i;
+		
+		System.out.println(Math.min(count2, count5));
 	}
 	
 	// P. 그리디 알고리즘
@@ -1675,7 +1793,7 @@ public class Main {
 		System.out.println(factorial(n));
 	}
 	
-	private static int factorial(int n) {
+	private static long factorial(long n) {
 		if (n == 0)
 			return 1;
 		else
