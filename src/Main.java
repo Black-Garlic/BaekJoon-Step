@@ -12,7 +12,183 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		Q11();
+		R05();
+	}
+	
+	// R. 스택
+	// 1. 스택 - 10828 
+	// Import BufferedReader
+	private static void R01() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(bf.readLine());
+		
+		ArrayList<Integer> array = new ArrayList<>();
+		
+		for (int i = 0; i < n; i++) {
+			String[] command = bf.readLine().split(" ");
+			
+			if (command[0].equals("push")) {
+				array.add(Integer.parseInt(command[1]));
+			} else if (command[0].equals("pop")) {
+				if (array.size() > 0) {
+					System.out.println(array.get(array.size() - 1));
+					array.remove(array.size() - 1);	
+				} else {
+					System.out.println(-1);
+				}
+			} else if (command[0].equals("size")) {
+				System.out.println(array.size());
+			} else if (command[0].equals("empty")) {
+				if (array.size() == 0) {
+					System.out.println(1);
+				} else {
+					System.out.println(0);
+				}
+			} else if (command[0].equals("top")) {
+				if (array.size() > 0) {
+					System.out.println(array.get(array.size() - 1));
+				} else {
+					System.out.println(-1);
+				}
+			}
+		}
+	}
+	
+	// R. 스택
+	// 2. 제로 - 10773 
+	// Import BufferedReader
+	private static void R02() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(bf.readLine()), sum = 0;
+		ArrayList<Integer> array = new ArrayList<>();
+		
+		for (int i = 0; i < n; i++) {
+			int num = Integer.parseInt(bf.readLine());
+			
+			if (num == 0) {
+				array.remove(array.size() - 1);
+			} else {
+				array.add(num);
+			}
+		}
+		
+		for (int i = 0; i < array.size(); i++)
+			sum += array.get(i);
+		
+		System.out.println(sum);
+	}
+	
+	// R. 스택
+	// 3. 괄호 - 9012
+	// Import BufferedReader
+	private static void R03() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(bf.readLine()), count;
+		
+		for (int i = 0; i < n; i++) {
+			String line = bf.readLine();
+			count = 0;
+			
+			for (int j = 0; j < line.length(); j++) {
+				if (line.charAt(j) == '(')
+					count++;
+				else
+					count--;
+				
+				if (count < 0)
+					break;
+			}
+			
+			if (count == 0)
+				System.out.println("YES");
+			else
+				System.out.println("NO");
+		}
+	}
+	
+	// R. 스택
+	// 4. 균형잡힌 세상 - 4949
+	// Import BufferedReader
+	private static void R04() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		Stack<Character> stack = new Stack<>();
+		
+		while(true) {
+			String line = bf.readLine();
+			
+			if (line.charAt(0) == '.')
+				break;
+			
+			stack.clear();
+			
+			for (int j = 0; j < line.length(); j++) {
+				char t = line.charAt(j);
+				if (t == '(' || t == '[') {
+					stack.push(t);
+				} else if (t == ')' || t == ']') {
+					if (stack.isEmpty() ||
+						(t == ')' && stack.peek() != '(') ||
+						(t == ']' && stack.peek() != '[')) {
+						stack.push(t);
+						break;
+					}
+					stack.pop();
+				}
+			}
+			if (stack.isEmpty())
+				System.out.println("YES");
+			else
+				System.out.println("NO");
+		}
+	}
+	
+	// R. 스택
+	// 5. 스택 수열 - 1874 ★
+	// Import BufferedReader
+	private static void R05() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(bf.readLine());
+		
+		Stack<Integer> stack = new Stack<>();
+		int[] array = new int[n];
+		int num = 1;
+		
+		boolean isAble = true;
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0; i < n; i++) {
+			array[i] = Integer.parseInt(bf.readLine());
+			
+			if (isAble) {
+				if (num <= array[i]) {
+					while(num <= array[i]) {
+						stack.push(num++);
+						sb.append("+\n");
+					}
+				}
+				if (stack.isEmpty()) {
+					isAble = false;
+				} else {
+					while(stack.peek() >= array[i]) {
+						stack.pop();
+						sb.append("-\n");
+						if(stack.isEmpty())
+							break;
+					}
+				}
+			}
+		}
+		
+		if (isAble)
+			System.out.println(sb.toString());
+		else
+			System.out.println("NO");
 	}
 	
 	// Q. 수학 3
