@@ -12,7 +12,323 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		R05();
+		S07();
+	}
+	
+	// S. Å¥, µ¦
+	// 1. Å¥ 2 - 18258 
+	// Import BufferedReader
+	private static void S01() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(bf.readLine());
+		int last = -1;
+		
+		Queue<Integer> command = new LinkedList<>();
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0; i < n; i++) {
+			String[] line = bf.readLine().split(" ");
+			
+			if (line[0].equals("push")) {
+				command.offer(Integer.parseInt(line[1]));
+				last = Integer.parseInt(line[1]);
+			} else if (line[0].equals("pop")) {
+				if (command.size() != 0) {
+					sb.append(command.poll() + "\n");
+					if (command.size() == 0)
+						last = -1;
+				} else {
+					sb.append("-1\n");
+				}
+			} else if (line[0].equals("size")) {
+				sb.append(command.size() + "\n");
+			} else if (line[0].equals("empty")) {
+				if (command.size() == 0)
+					sb.append("1\n");
+				else
+					sb.append("0\n");
+			} else if (line[0].equals("front")) {
+				if (command.size() != 0)
+					sb.append(command.peek() + "\n");
+				else
+					sb.append("-1\n");
+			} else if (line[0].equals("back")) {
+				if (command.size() != 0)
+					sb.append(last + "\n");
+				else
+					sb.append("-1\n");
+			}
+		}
+		System.out.println(sb.toString());
+	}
+	
+	// S. Å¥, µ¦
+	// 2. Ä«µå 2 - 2164
+	// Import Scanner
+	private static void S02() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt();
+		
+		Queue<Integer> command = new LinkedList<>();
+		
+		for (int i = 1; i <= n; i++)
+			command.offer(i);
+		
+		while(command.size() > 1) {
+			command.poll();
+			command.offer(command.poll());
+		}
+		
+		System.out.println(command.peek());
+	}
+	
+	// S. Å¥, µ¦
+	// 3. ¿À¼¼Çª½º ¹®Á¦ 0 - 11866
+	// Import Scanner
+	private static void S03() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), k = s.nextInt(), index = 0, count = 0;
+		
+		ArrayList<Integer> list = new ArrayList<>();
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<");
+		
+		for (int i = 1; i <= n; i++)
+			list.add(i);
+		
+		while (count < n) {
+			int i = 0;
+			
+			while(i < k - 1) {
+				if (index == list.size())
+					index = 0;
+				
+				if (index == list.size() - 1)
+					index = 0;
+				else
+					index++;
+				i++;
+			}
+			
+			if (count != n - 1)
+				sb.append(list.get(index) + ", ");
+			else
+				sb.append(list.get(index));
+			
+			list.remove(index);
+			count++;
+		}
+		
+		sb.append(">");
+		
+		System.out.println(sb.toString());
+	}
+	
+	// S. Å¥, µ¦
+	// 4. ÇÁ¸°ÅÍ Å¥ - 1966 ¡Ú
+	// Import BufferedReader
+	private static void S04() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int T = Integer.parseInt(bf.readLine());
+		
+		for (int i = 0; i < T; i++) {
+			String[] line = bf.readLine().split(" ");
+			int n = Integer.parseInt(line[0]);
+			int m = Integer.parseInt(line[1]);
+			int result = 1;
+			
+			String[] num = bf.readLine().split(" ");
+			
+			ArrayList<int[]> pri = new ArrayList<>();
+			
+			for (int j = 0; j < n; j++) {
+				pri.add(new int[] {j, Integer.parseInt(num[j])});
+			}
+			
+			while(pri.size() > 0) {
+				int[] current = pri.get(0);
+				boolean check = true;
+				
+				for (int j = 0; j < pri.size(); j++) {
+					if (pri.get(j)[1] > current[1]) {
+						check = false;
+						break;
+					}
+				}
+				
+				if (!check) {
+					pri.add(current);
+					pri.remove(0);
+				} else {
+					if (current[0] == m) {
+						System.out.println(result);
+						break;
+					} else {
+						result++;
+						pri.remove(0);
+					}
+				}
+			}
+		}
+	}
+	
+	// S. Å¥, µ¦
+	// 5. µ¦ - 10866
+	// Import BufferedReader
+	private static void S05() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int T = Integer.parseInt(bf.readLine());
+		Deque<Integer> deque = new ArrayDeque<>();
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0; i < T; i++) {
+			String[] line = bf.readLine().split(" ");
+			
+			if (line[0].equals("push_front")) {
+				deque.offerFirst(Integer.parseInt(line[1]));
+			} else if (line[0].equals("push_back")) {
+				deque.offerLast(Integer.parseInt(line[1]));
+			} else if (line[0].equals("pop_front")) {
+				if (deque.size() != 0)
+					sb.append(deque.pollFirst() + "\n");
+				else
+					sb.append("-1\n");
+			} else if (line[0].equals("pop_back")) {
+				if (deque.size() != 0)
+					sb.append(deque.pollLast() + "\n");
+				else
+					sb.append("-1\n");
+			} else if (line[0].equals("size")) {
+				sb.append(deque.size() + "\n");
+			} else if (line[0].equals("empty")) {
+				if (deque.isEmpty())
+					sb.append("1\n");
+				else
+					sb.append("0\n");
+			} else if (line[0].equals("front")) {
+				if (deque.size() != 0)
+					sb.append(deque.peekFirst() + "\n");
+				else
+					sb.append("-1\n");
+			} else if (line[0].equals("back")) {
+				if (deque.size() != 0)
+					sb.append(deque.peekLast() + "\n");
+				else
+					sb.append("-1\n");
+			}
+		}
+		
+		System.out.println(sb.toString());
+	}
+	
+	// S. Å¥, µ¦
+	// 6. È¸ÀüÇÏ´Â Å¥ - 1021
+	// Import Scanner
+	private static void S06() {
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), m = s.nextInt(), count = 0;
+		
+		ArrayList<Integer> list = new ArrayList<>();
+		ArrayList<Integer> num = new ArrayList<>();
+		
+		for (int i = 1; i <= n; i++)
+			list.add(i);
+		
+		for (int i = 0; i < m; i++) {
+			int goal = s.nextInt();
+			boolean done = false;
+			
+			while(!done) {
+				if (goal == list.get(0)) {
+					list.remove(0);
+					done = true;
+				} else {
+					if (list.indexOf(goal) <= list.size() / 2)
+						list.add(list.size() - 1, list.remove(0));
+					else
+						list.add(0, list.remove(list.size() - 1));
+					count++;
+				}
+			}
+			
+		}
+		
+		System.out.println(count);
+	}
+	
+	// S. Å¥, µ¦
+	// 7. AC - 5430
+	// Import BufferedReader
+	private static void S07() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int T = Integer.parseInt(bf.readLine());
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0; i < T; i++) {
+			String command = bf.readLine();
+			int n = Integer.parseInt(bf.readLine());
+			boolean done = true, reverse = false;
+			
+			String tmp = bf.readLine();
+			String[] split = tmp.substring(1, tmp.length() - 1).split(",");
+			
+			Deque<Integer> num = new ArrayDeque<>();
+			
+			for (int j = 0; j < n; j++)
+				num.offer(Integer.parseInt(split[j]));
+			
+			for (int j = 0; j < command.length(); j++) {
+				if (command.charAt(j) == 'R') {
+					reverse = !reverse;
+				} else {
+					if (num.size() == 0) {
+						done = false;
+						break;
+					} else {
+						if (reverse)
+							num.pollLast();
+						else
+							num.pollFirst();
+					}
+				}
+			}
+			
+			if (done) {
+				sb.append("[");
+				int repeat = num.size();
+				if (!reverse) {
+					for (int j = 0; j < repeat; j++) {
+						if (num.size() != 1)
+							sb.append(num.pollFirst() + ",");
+						else
+							sb.append(num.pollFirst());
+					}	
+				} else {
+					for (int j = 0; j < repeat; j++) {
+						if (num.size() != 1)
+							sb.append(num.pollLast() + ",");
+						else
+							sb.append(num.pollLast());
+					}	
+				}
+				
+				sb.append("]\n");
+			} else {
+				sb.append("error\n");
+			}
+		}
+		
+		System.out.println(sb.toString());
 	}
 	
 	// R. ½ºÅÃ
