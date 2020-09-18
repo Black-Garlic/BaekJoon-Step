@@ -12,7 +12,246 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		S07();
+		T03();
+	}
+	
+	// T. 분할 정복
+	// 1. 색종이 만들기 - 2630 
+	// Import BufferedReader
+	private static int t01Black = 0, t01White = 0;
+	private static int[][] t01Square;
+	
+	private static void T01() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(bf.readLine());
+		t01Square = new int[n][n];
+		
+		for (int i = 0; i < n; i++) {
+			String[] line = bf.readLine().split(" ");
+			for (int j = 0; j < n; j++)
+				t01Square[i][j] = Integer.parseInt(line[j]);
+		}
+		
+		t01Separate(0, n - 1, 0, n - 1);
+		
+		System.out.println(t01White);
+		System.out.println(t01Black);
+	}
+	
+	private static void t01Separate(int x1, int x2, int y1, int y2) {
+		if (x2 - x1 == 0) {
+			if (t01Square[x1][y1] == 0)
+				t01White++;
+			else
+				t01Black++;
+		} else {
+			int flag = t01Check(x1, x2, y1, y2);
+			
+			if (flag == 0) {
+				t01White++;
+			} else if (flag == 1) {
+				t01Black++;
+			} else {
+				int xGap = x2 - x1  + 1;
+				int yGap = y2 - y1  + 1;
+				t01Separate(x1, x1 + xGap / 2 - 1, y1, y1 + yGap / 2 - 1);
+				t01Separate(x1 + xGap / 2, x2, y1, y1 + yGap / 2 - 1);
+				t01Separate(x1, x1 + xGap / 2 - 1, y1 + yGap / 2, y2);
+				t01Separate(x1 + xGap / 2, x2, y1 + yGap / 2, y2);
+			}
+		}
+	}
+	
+	private static int t01Check(int x1, int x2, int y1, int y2) {
+		int color = t01Square[x1][y1];
+		
+		for (int i = x1; i <= x2; i++) {
+			for (int j = y1; j <= y2; j++) {
+				if (color != t01Square[i][j])
+					return -1;
+			}
+		}
+		
+		return color;
+	}
+	
+	// T. 분할 정복
+	// 2. 쿼드트리 - 1992
+	// Import BufferedReader
+	private static int[][] t02Square;
+	
+	private static void T02() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(bf.readLine());
+		
+		t02Square = new int[n][n];
+		
+		for (int i = 0; i < n; i++) {
+			String line = bf.readLine();
+			for (int j = 0; j < n; j++) {
+				t02Square[i][j] = line.charAt(j) - 48;
+			}
+		}
+		
+		String answer = t02Separate(0, n - 1, 0, n - 1);
+		
+		System.out.println(answer);
+	}
+	
+	private static String t02Separate(int x1, int x2, int y1, int y2) {
+		String answer = "(";
+		if (x2 == x1) {
+			if (t02Square[x1][y1] == 0)
+				return "0";
+			else
+				return "1";
+		} else {
+			int flag = t02Check(x1, x2, y1, y2);
+			
+			if (flag == 0) {
+				return "0";
+			} else if (flag == 1) {
+				return "1";
+			} else {
+				int xGap = x2 - x1  + 1;
+				int yGap = y2 - y1  + 1;
+				answer += t02Separate(x1, x1 + xGap / 2 - 1, y1, y1 + yGap / 2 - 1);
+				answer += t02Separate(x1, x1 + xGap / 2 - 1, y1 + yGap / 2, y2);
+				answer += t02Separate(x1 + xGap / 2, x2, y1, y1 + yGap / 2 - 1);
+				answer += t02Separate(x1 + xGap / 2, x2, y1 + yGap / 2, y2);
+			}
+		}
+		
+		return answer + ")";
+	}
+	
+	private static int t02Check(int x1, int x2, int y1, int y2) {
+		int color = t02Square[x1][y1];
+		
+		for (int i = x1; i <= x2; i++) {
+			for (int j = y1; j <= y2; j++) {
+				if (color != t02Square[i][j])
+					return -1;
+			}
+		}
+		
+		return color;
+	}
+	
+	// T. 분할 정복
+	// 3. 종이의 개수 - 1780
+	// Import BufferedReader
+	private static int[][] t03Square;
+	private static int[] t03Count = {0, 0, 0};
+	
+	private static void T03() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(bf.readLine());
+		
+		t03Square = new int[n][n];
+		
+		for (int i = 0; i < n; i++) {
+			String[] line = bf.readLine().split(" ");
+			for (int j = 0; j < n; j++)
+				t03Square[i][j] = Integer.parseInt(line[j]);
+		}
+		
+		t03Separate(0, n - 1, 0, n - 1);
+		
+		System.out.println(t03Count[0]);
+		System.out.println(t03Count[1]);
+		System.out.println(t03Count[2]);
+	}
+	
+	private static void t03Separate(int x1, int x2, int y1, int y2) {
+		if (x2 == x1) {
+			if (t03Square[x1][y1] == -1)
+				t03Count[0]++;
+			else if (t03Square[x1][y1] == 0) 
+				t03Count[1]++;
+			else
+				t03Count[2]++;
+		} else {
+			int flag = t03Check(x1, x2, y1, y2);
+			
+			if (flag == -1) {
+				t03Count[0]++;
+			} else if (flag == 0) {
+				t03Count[1]++;
+			} else if (flag == 1) {
+				t03Count[2]++;
+			} else {
+				int xGap = x2 - x1  + 1;
+				int yGap = y2 - y1  + 1;
+				
+				for (int i = 0; i < 3; i++)
+					for (int j = 0; j < 3; j++)
+						t03Separate(x1 + xGap * i / 3, x1 + xGap * (i + 1) / 3 - 1, y1 + yGap * j / 3, y1 + yGap * (j + 1) / 3 - 1);
+			}
+		}
+	}
+	
+	private static int t03Check(int x1, int x2, int y1, int y2) {
+		int color = t03Square[x1][y1];
+		
+		for (int i = x1; i <= x2; i++)
+			for (int j = y1; j <= y2; j++)
+				if (color != t03Square[i][j])
+					return -2;
+		
+		return color;
+	}
+	
+	// T. 분할 정복
+	// 4. 곱셈 - 1629
+	// Import 
+	private static void T04() {
+		System.out.println("Hello World!");
+	}
+	
+	// T. 분할 정복
+	// 5. 이항 계수 3 - 11401 
+	// Import 
+	private static void T05() {
+		System.out.println("Hello World!");
+	}
+	
+	// T. 분할 정복
+	// 6. 행렬 곱셈 - 2740
+	// Import 
+	private static void T06() {
+		System.out.println("Hello World!");
+	}
+	
+	// T. 분할 정복
+	// 7. 행렬 제곱 - 10830
+	// Import 
+	private static void T07() {
+		System.out.println("Hello World!");
+	}
+	
+	// T. 분할 정복
+	// 8. 피보나치 수 3 - 2749
+	// Import 
+	private static void T08() {
+		System.out.println("Hello World!");
+	}
+	
+	// T. 분할 정복
+	// 9. 히스토그램에서 가장 큰 직사각형 - 6549
+	// Import 
+	private static void T09() {
+		System.out.println("Hello World!");
+	}
+	
+	// T. 분할 정복
+	// 10. 가장 가까운 두 점 - 2261
+	// Import 
+	private static void T10() {
+		System.out.println("Hello World!");
 	}
 	
 	// S. 큐, 덱
