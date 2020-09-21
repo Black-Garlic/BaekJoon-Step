@@ -12,7 +12,7 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		T03();
+		T05();
 	}
 	
 	// T. 분할 정복
@@ -207,16 +207,46 @@ public class Main {
 	
 	// T. 분할 정복
 	// 4. 곱셈 - 1629
-	// Import 
+	// Import Scanner
 	private static void T04() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		long a = s.nextInt(), b = s.nextInt(), c = s.nextInt();
+		
+		System.out.println(t04Cal(a, b, c));
+	}
+	
+	private static long t04Cal(long a, long b, long c) {
+		if (b == 0) {
+			return 1;
+		} else if (b == 1) {
+			return a % c;
+		} else if (b % 2 == 0){
+			long tmp = t04Cal(a, b / 2, c);
+			return (tmp * tmp) % c;
+		} else {
+			long tmp = t04Cal(a, b -1, c);
+			return (a * tmp) % c;
+		}
 	}
 	
 	// T. 분할 정복
 	// 5. 이항 계수 3 - 11401 
-	// Import 
+	// Import Scanner
 	private static void T05() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), k = s.nextInt();
+		
+		System.out.println(t05Cal(n, k));
+	}
+	
+	private static int t05Cal(int n, int k) {
+		if (k == 0) {
+			return 1;
+		}
+		
+		return tmp;
 	}
 	
 	// T. 분할 정복
