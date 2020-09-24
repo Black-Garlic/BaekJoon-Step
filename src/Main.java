@@ -231,22 +231,53 @@ public class Main {
 	}
 	
 	// T. 분할 정복
-	// 5. 이항 계수 3 - 11401 
+	// 5. 이항 계수 3 - 11401 ★ 
 	// Import Scanner
 	private static void T05() {
 		Scanner s = new Scanner(System.in);
 		
 		int n = s.nextInt(), k = s.nextInt();
+		long factor[] = new long[n + 1];
+		factor[1] = 1;
 		
-		System.out.println(t05Cal(n, k));
+		for (int i = 2; i <= n; i++)
+			factor[i] = (i * factor[i - 1]) % 1000000007; 
+		
+		if (n == 1 || k == 0 || k == n) {
+			System.out.println(1);
+		} else {
+			long x = t05Cal(1000000007, (factor[n - k] * factor[k] % 1000000007));
+			long result = (factor[n] * x) % 1000000007;
+			
+			System.out.println(result);
+		}
 	}
 	
-	private static int t05Cal(int n, int k) {
-		if (k == 0) {
-			return 1;
+	private static long t05Cal(long a, long b) {
+		long s[] = new long[2];
+		long t[] = new long[2];
+		
+		s[0] = 1;
+		t[0] = 0;
+		s[1] = 0;
+		t[1] = 1;
+		
+		while(a % b != 0) {
+			long ss = s[0] - (a / b) * s[1];
+			long tt = t[0] - (a / b) * t[1];
+			
+			s[0] = s[1];
+			t[0] = t[1];
+			
+			s[1] = ss;
+			t[1] = tt;
+			
+			long tmp = b;
+			b = a % b;
+			a = tmp;
 		}
 		
-		return tmp;
+		return t[1] = t[1] < 0 ? t[1] + 1000000007 : t[1];
 	}
 	
 	// T. 분할 정복
