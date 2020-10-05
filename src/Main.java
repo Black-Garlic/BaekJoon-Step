@@ -12,7 +12,7 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		T05();
+		T09();
 	}
 	
 	// T. 분할 정복
@@ -282,30 +282,176 @@ public class Main {
 	
 	// T. 분할 정복
 	// 6. 행렬 곱셈 - 2740
-	// Import 
+	// Import Scanner 
 	private static void T06() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		StringBuilder sb = new StringBuilder();
+		
+		int aW, aH, bW, bH;
+		
+		aW = s.nextInt();
+		aH = s.nextInt();
+		
+		int[][] aArray = new int[aW][aH];
+		
+		for (int i = 0; i < aW; i++) {
+			for (int j = 0; j < aH; j++) {
+				aArray[i][j] = s.nextInt();
+			}
+		}
+		
+		bW = s.nextInt();
+		bH = s.nextInt();
+		
+		int[][] bArray = new int[bW][bH];
+		
+		for (int i = 0; i < bW; i++) {
+			for (int j = 0; j < bH; j++) {
+				bArray[i][j] = s.nextInt();
+			}
+		}
+		
+		int[][] result = new int[aW][bH];
+		
+		for (int i = 0; i < aW; i++) {
+			for (int j = 0; j < bH; j++) {
+				int tmp = 0;
+				
+				for (int k = 0; k < aH; k++) {
+					tmp += aArray[i][k] * bArray[k][j];
+				}
+				result[i][j] = tmp;
+			}
+		}
+		
+		for (int i = 0; i < aW; i++) {
+			for (int j = 0; j < bH; j++) {
+				sb.append(result[i][j] + " ");
+			}
+			sb.append("\n");
+		}
+		
+		System.out.println(sb.toString());
+		
 	}
 	
 	// T. 분할 정복
-	// 7. 행렬 제곱 - 10830
-	// Import 
+	// 7. 행렬 제곱 - 10830 ★
+	// Import Scanner
+	private static int[][] t07Array;
+	private static int t07N;
+	
 	private static void T07() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		StringBuilder sb = new StringBuilder();
+		
+		t07N = s.nextInt();
+		long b = s.nextLong();
+		
+		t07Array = new int[t07N][t07N];
+		
+		for (int i = 0; i < t07N; i++)
+			for (int j = 0; j < t07N; j++)
+				t07Array[i][j] = s.nextInt();
+		
+		int[][] result = t07Cal(b);
+		
+		for (int i = 0; i < t07N; i++) {
+			for (int j = 0; j < t07N; j++) {
+				sb.append(result[i][j] + " ");
+			}
+			sb.append("\n");
+		}
+		
+		System.out.println(sb.toString());
+	}
+	
+	private static int[][] t07Cal(long b) {
+		int[][] result = new int[t07N][t07N];
+		int[][] tmp = new int[t07N][t07N];
+		
+		if (b == 1) {
+			for (int i = 0; i < t07N; i++)
+				for (int j = 0; j < t07N; j++)
+					result[i][j] = t07Array[i][j] % 1000;
+			
+		} else if (b % 2 == 0) {
+			tmp = t07Cal(b / 2);
+			
+			for (int i = 0; i < t07N; i++) {
+				for (int j = 0; j < t07N; j++) {
+					int num = 0;
+					for (int k = 0; k < t07N; k++)
+						num += tmp[i][k] * tmp[k][j];
+					
+					result[i][j] = num % 1000;
+				}
+			}
+		} else {
+			tmp = t07Cal(b - 1);
+			
+			for (int i = 0; i < t07N; i++) {
+				for (int j = 0; j < t07N; j++) {
+					int num = 0;
+					for (int k = 0; k < t07N; k++)
+						num += tmp[i][k] * t07Array[k][j];
+					
+					result[i][j] = num % 1000;
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	// T. 분할 정복
-	// 8. 피보나치 수 3 - 2749
-	// Import 
+	// 8. 피보나치 수 3 - 2749 ★
+	// Import Scanner
 	private static void T08() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		long n = s.nextLong();
+		
+		int mod = 1000000;
+		int pisano = mod / 10 * 15;
+		
+		long[] array = new long[pisano];
+		
+		array[0] = 0;
+		array[1] = 1;
+		
+		for (int i = 2; i < pisano; i++)
+			array[i] = (array[i - 1] + array[i - 2]) % mod;
+		
+		int index = (int) (n % pisano);
+		
+		System.out.println(array[index]);
 	}
 	
 	// T. 분할 정복
 	// 9. 히스토그램에서 가장 큰 직사각형 - 6549
-	// Import 
-	private static void T09() {
-		System.out.println("Hello World!");
+	// Import BufferedReader
+	private static void T09() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		while (true) {
+			String[] line = bf.readLine().split(" ");
+			
+			int n = Integer.parseInt(line[0]);
+			int max = 0, tmp = 0, height = 0;
+			int[] array = new int[n];
+			
+			
+			if (n == 0) {
+				break;
+			} else {
+				for (int i = 0; i < n; i++)
+					array[i] = Integer.parseInt(line[i + 1]);
+			}
+			
+			
+			
+		}
 	}
 	
 	// T. 분할 정복
