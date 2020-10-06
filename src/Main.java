@@ -12,7 +12,7 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		T09();
+		T10();
 	}
 	
 	// T. 분할 정복
@@ -429,7 +429,7 @@ public class Main {
 	}
 	
 	// T. 분할 정복
-	// 9. 히스토그램에서 가장 큰 직사각형 - 6549
+	// 9. 히스토그램에서 가장 큰 직사각형 - 6549 ★
 	// Import BufferedReader
 	private static void T09() throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -437,28 +437,87 @@ public class Main {
 		while (true) {
 			String[] line = bf.readLine().split(" ");
 			
-			int n = Integer.parseInt(line[0]);
-			int max = 0, tmp = 0, height = 0;
-			int[] array = new int[n];
+			int n = Integer.parseInt(line[0]);			
 			
-			
-			if (n == 0) {
+			if (n == 0)
 				break;
-			} else {
-				for (int i = 0; i < n; i++)
-					array[i] = Integer.parseInt(line[i + 1]);
+
+			long[] array = new long[n];
+			
+			for (int i = 0; i < n; i++)
+				array[i] = Long.parseLong(line[i + 1]);
+			
+			Stack<Integer> stack = new Stack<>();
+			
+			long answer = 0;
+			
+			for (int i = 0; i < n; i++) {
+				while (!stack.isEmpty() && array[stack.peek()] > array[i]) {
+					Long height = array[stack.pop()];
+					int width = i;
+					
+					if (!stack.isEmpty())
+						width = i - stack.peek() - 1;
+					
+					if (answer < width * height)
+						answer = width * height;
+				}
+				stack.push(i);
 			}
 			
+			while(!stack.isEmpty()) {
+				long height = array[stack.pop()];
+				int width = n;
+				if (!stack.isEmpty())
+					width = n - stack.peek() - 1;
+				
+				if (answer < width * height)
+					answer = width * height;
+			}
 			
-			
+			System.out.println(answer);
 		}
 	}
 	
 	// T. 분할 정복
-	// 10. 가장 가까운 두 점 - 2261
-	// Import 
-	private static void T10() {
-		System.out.println("Hello World!");
+	// 10. 가장 가까운 두 점 - 2261 ★
+	// Import BufferedReader
+	private static void T10() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(bf.readLine());
+		int[][] num = new int[n][2];
+		
+		for (int i = 0; i < n; i++) {
+			String[] line = bf.readLine().split(" ");
+			
+			num[i][0] = Integer.parseInt(line[0]) + 10000;
+			num[i][1] = Integer.parseInt(line[1]) + 10000;
+		}
+		
+		Arrays.sort(num, (o1, o2) -> {
+			if (o1[0] == o2[0]) {
+				return Integer.compare(o1[1], o2[1]);
+			} else {
+				return Integer.compare(o1[0], o2[0]);
+			}
+		});
+		
+		
+		int length = (int) Math.pow(Math.abs(num[0][0] - num[1][0]), 2) + (int) Math.pow(Math.abs(num[0][1] - num[1][1]), 2);
+		
+		for (int i = 1; i < n - 1; i++) {
+			
+			if ((int) Math.pow(num[i][1] - num[i][0], 2) < length) {
+			
+				int dis = (int) Math.pow(Math.abs(num[i][0] - num[i + 1][0]), 2) + (int) Math.pow(Math.abs(num[i][1] - num[i + 1][1]), 2);
+				
+				if (dis < length)
+					length = dis;
+			}
+		}
+		
+		System.out.println(length);
 	}
 	
 	// S. 큐, 덱
