@@ -12,7 +12,220 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		T10();
+		U05();
+	}
+	
+	// U. 이분 탐색
+	// 1. 수 찾기 - 1920
+	// Import BufferedReader
+	private static void U01() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		int n = Integer.parseInt(bf.readLine());
+		int[] nArray = new int[n];
+		
+		String[] line = bf.readLine().split(" ");
+		
+		for (int i = 0; i < n; i++)
+			nArray[i] = Integer.parseInt(line[i]);
+		
+		int m = Integer.parseInt(bf.readLine());
+		int[] mArray = new int[m];
+		
+		line = bf.readLine().split(" ");
+		
+		for (int i = 0; i < m; i++)
+			mArray[i] = Integer.parseInt(line[i]);
+		
+		Arrays.sort(nArray);
+		
+		int index, start, end;
+		boolean contain;
+		
+		for (int i = 0; i < m; i++) {
+			contain = false;
+			start = -1;
+			end = n;
+			
+			while(end - start > 1) {
+				index = (start + end) / 2;
+				
+				if (start <= index && index <= end) {
+					if (mArray[i] == nArray[index]) {
+						contain = true;
+						break;
+					} else if (mArray[i] < nArray[index]) {
+						end = index;
+					} else if (mArray[i] > nArray[index]) {
+						start = index;
+					}
+				} else {
+					break;
+				}				
+			}
+			
+			if (contain)
+				sb.append("1\n");
+			else
+				sb.append("0\n");
+		}
+		
+		System.out.println(sb.toString());
+	}
+	
+	// U. 이분 탐색
+	// 2. 숫자 카드 2 - 10816
+	// Import BufferedReader
+	private static void U02() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		int n = Integer.parseInt(bf.readLine());
+		int[] nArray = new int[20000001];
+		
+		String[] line = bf.readLine().split(" ");
+		
+		for (int i = 0; i < n; i++)
+			++nArray[Integer.parseInt(line[i]) + 10000000];
+		
+		int m = Integer.parseInt(bf.readLine());
+		
+		line = bf.readLine().split(" ");
+		
+		for (int i = 0; i < m; i++)
+			sb.append(nArray[Integer.parseInt(line[i]) + 10000000] + " ");
+		
+		System.out.println(sb.toString());
+	}
+	
+	// U. 이분 탐색
+	// 3. 랜선 자르기 - 1654
+	// Import Scanner
+	private static void U03() {
+		Scanner s = new Scanner(System.in);
+		
+		int k = s.nextInt(), n = s.nextInt();
+		int[] line = new int[k];
+		
+		for (int i = 0; i < k; i++)
+			line[i] = s.nextInt();
+		
+		Arrays.sort(line);
+		
+		long middle, start = 1, end = line[k - 1], count;
+		
+		while(end >= start) {
+			middle = (start + end) / 2;
+			
+			count = 0;
+			
+			for (int i = 0; i < k; i++)
+				count += line[i] / middle;
+			
+			if (count < n) {
+				end = middle - 1;
+			} else if (count >= n) {
+				start = middle + 1;
+			}
+		}
+		
+		System.out.println(end);
+	}
+	
+	// U. 이분 탐색
+	// 4. 나무 자르기 - 2805
+	// Import BufferedReader
+	private static void U04() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n, m;
+		
+		String[] firstLine = bf.readLine().split(" ");
+		
+		n = Integer.parseInt(firstLine[0]);
+		m = Integer.parseInt(firstLine[1]);
+		
+		int[] tree = new int[n];
+		
+		String[] secondLine = bf.readLine().split(" ");
+		
+		for (int i = 0; i < n; i++)
+			tree[i] = Integer.parseInt(secondLine[i]);
+		
+		Arrays.sort(tree);
+		
+		long middle, min = 1, max = tree[n - 1], length;
+		
+		while(max >= min) {
+			length = 0;
+			
+			middle = (min + max) / 2;
+			
+			for (int i = 0; i < n; i++) {
+				if (tree[i] > middle)
+					length += (tree[i] - middle);
+			}
+				
+			if (length < m) {
+				max = middle - 1;
+			} else {
+				min = middle + 1;
+			}
+		}
+		
+		System.out.println(max);
+	}
+	
+	// U. 이분 탐색
+	// 5. 공유기 설치 - 2110
+	// Import BufferedReader
+	private static void U05() throws IOException {
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n, c;
+		
+		String[] firstLine = bf.readLine().split(" ");
+		
+		n = Integer.parseInt(firstLine[0]);
+		c = Integer.parseInt(firstLine[1]);
+		
+		int[] home = new int[n];
+		
+		String[] secondLine = bf.readLine().split(" ");
+		
+		for (int i = 0; i < n; i++)
+			home[i] = Integer.parseInt(secondLine[i]);
+		
+		Arrays.sort(home);
+		
+		int[] dis = new int[n - 1];
+		
+		for (int i = 0; i < n - 1; i++) {
+			dis[i] = home[i + 1] - home[i];
+		}
+		
+		int min = 0, max = n - 2, middle;
+		
+		while (max >= min) {
+			middle = (min + max) / 2;
+			
+			
+		}
+	}
+	
+	// U. 이분 탐색
+	// 6. K번째 수 - 1300
+	// Import 
+	private static void U06() {
+		System.out.println("Hello World!");
+	}
+	
+	// U. 이분 탐색
+	// 7. 가장 긴 증가하는 부분 수열 2 - 12015
+	// Import 
+	private static void U07() {
+		System.out.println("Hello World!");
 	}
 	
 	// T. 분할 정복
