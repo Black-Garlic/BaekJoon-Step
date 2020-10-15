@@ -12,7 +12,7 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) throws IOException {
-		U05();
+		U06();
 	}
 	
 	// U. 이분 탐색
@@ -178,7 +178,7 @@ public class Main {
 	}
 	
 	// U. 이분 탐색
-	// 5. 공유기 설치 - 2110
+	// 5. 공유기 설치 - 2110 ★
 	// Import BufferedReader
 	private static void U05() throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -192,33 +192,46 @@ public class Main {
 		
 		int[] home = new int[n];
 		
-		String[] secondLine = bf.readLine().split(" ");
-		
 		for (int i = 0; i < n; i++)
-			home[i] = Integer.parseInt(secondLine[i]);
+			home[i] = Integer.parseInt(bf.readLine());
 		
 		Arrays.sort(home);
 		
-		int[] dis = new int[n - 1];
+		int left = 1, right = home[n - 1] - home[0], dis = 0, answer = 0;
 		
-		for (int i = 0; i < n - 1; i++) {
-			dis[i] = home[i + 1] - home[i];
+		while(left <= right) {
+			int mid = (left + right) / 2;
+			int start = home[0];
+			int count = 1;
+			
+			for (int i = 1; i < n; i++) {
+				dis = home[i] - start;
+				if (mid <= dis) {
+					count++;
+					start = home[i];
+				}
+			}
+			
+			if (count >= c) {
+				answer = mid;
+				left = mid + 1;
+			} else {
+				right = mid - 1;
+			}
 		}
 		
-		int min = 0, max = n - 2, middle;
-		
-		while (max >= min) {
-			middle = (min + max) / 2;
-			
-			
-		}
+		System.out.println(answer);
 	}
 	
 	// U. 이분 탐색
 	// 6. K번째 수 - 1300
-	// Import 
+	// Import Scanner
 	private static void U06() {
-		System.out.println("Hello World!");
+		Scanner s = new Scanner(System.in);
+		
+		int n = s.nextInt(), k = s.nextInt();
+		
+		
 	}
 	
 	// U. 이분 탐색
